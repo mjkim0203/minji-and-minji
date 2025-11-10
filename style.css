@@ -1,0 +1,498 @@
+/* === 전역 설정 === */
+:root {
+    --color-bg: #ffffff;
+    --color-bg-content: #ffffff;
+    --color-text: #202122;
+    --color-border: #a2a9b1;
+    --color-border-content: #c8ccd1;
+    --color-link: #36c;
+    --color-infobox-header: #ff8ddc;
+    --color-infobox-bg: #f8f9fa;
+}
+
+/* 다크 모드 (JS로 body에 .theme-dark 클래스 추가 시) */
+body.theme-dark {
+    --color-bg: #1a1a1a;
+    --color-bg-content: #222222;
+    --color-text: #e1e3e4;
+    --color-border: #5a5a5a;
+    --color-border-content: #4d4d4d;
+    --color-link: #6af;
+    --color-infobox-bg: #2b2b2b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--color-link);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* === 1. 상단 알림 배너 === */
+.site-notice {
+    background-color: #fdfdfd;
+    border: 1px solid #a2a9b1;
+    padding: 10px 40px;
+    text-align: center;
+    font-size: 0.9em;
+    position: relative;
+    background-color: var(--color-bg-content);
+}
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8em;
+    color: var(--color-link);
+}
+
+/* === 2. 메인 헤더 === */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    height: 50px;
+    background-color: var(--color-bg-content);
+    border-bottom: 1px solid var(--color-border);
+}
+.header-left {
+    display: flex;
+    align-items: center;
+}
+.sidebar-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 10px;
+}
+.sidebar-toggle span {
+    display: block;
+    width: 20px;
+    height: 3px;
+    background-color: var(--color-text);
+    margin-bottom: 4px;
+}
+.sidebar-toggle span:last-child {
+    margin-bottom: 0;
+}
+.logo-area {
+    display: flex;
+    align-items: center;
+}
+
+.logo-text h1 {
+    font-size: 1em;
+    font-weight: normal; 
+}
+
+.search-area {
+    flex-grow: 1;
+    margin: 0 20px;
+    display: flex;
+    justify-content: center;
+}
+.search-area form {
+    display: flex;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    width: 100%;
+    max-width: 500px;
+}
+.search-area input {
+    flex-grow: 1;
+    border: none;
+    padding: 8px 10px;
+    font-size: 0.9em;
+    background-color: var(--color-bg-content);
+    color: var(--color-text);
+}
+.search-area button {
+    background-color: #f8f9fa;
+    border: none;
+    border-left: 1px solid var(--color-border);
+    padding: 0 12px;
+    cursor: pointer;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+.user-links {
+    margin-left: auto;
+    white-space: nowrap; 
+}
+.user-links a {
+    font-size: 0.9em;
+    margin-left: 15px;
+}
+
+/* === 3. 메인 컨테이너 === */
+.main-container {
+    display: flex;
+    position: relative;
+}
+
+/* 3-1. 좌측 사이드바 */
+.left-sidebar {
+    position: fixed;
+    left: -250px; 
+    top: 50px;
+    width: 250px;
+    height: calc(100vh - 50px);
+    background-color: var(--color-bg-content);
+    border-right: 1px solid var(--color-border);
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 100;
+}
+.left-sidebar.show {
+    left: 0;
+}
+.left-sidebar nav a {
+    display: block;
+    padding: 8px 0;
+    font-size: 0.9em;
+}
+
+/* 3-2. 콘텐츠 래퍼 */
+.content-wrapper-flex {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* 3-3. 중앙 콘텐츠 영역 */
+.content-area {
+    flex-grow: 1; 
+    max-width: 1000px; 
+    margin: 20px 0; 
+    padding: 30px;
+    background-color: var(--color-bg-content);
+    border: 1px solid var(--color-border-content);
+    min-height: 100vh;
+}
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--color-border-content);
+    padding-bottom: 10px;
+}
+.page-title-section {
+    display: flex;
+    flex-direction: column;
+}
+.page-title {
+    font-size: 1.8em;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+.page-tabs-left a,
+.page-tabs-right a {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    border-bottom: 2px solid transparent;
+}
+.page-tabs-left a.active {
+    font-weight: bold;
+    border-bottom-color: var(--color-link);
+}
+.page-tabs-right {
+    margin-left: auto;
+}
+.page-tabs-right a.active {
+    font-weight: bold;
+}
+
+.article-body {
+    padding-top: 20px;
+}
+.article-subtitle {
+    font-size: 0.8em;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border-content);
+    padding-bottom: 10px;
+}
+.article-body p {
+    margin-top: 1em;
+}
+
+/* === [수정] 인물 프로필 섹션 (Flexbox 적용) === */
+.person-profile {
+    display: none; 
+    padding-top: 20px;
+    border-bottom: 1px solid var(--color-border-content);
+    margin-bottom: 20px;
+    
+    /* [추가] Flexbox 레이아웃으로 변경 */
+    display: flex;
+    flex-direction: row; /* 텍스트 | Infobox */
+    align-items: stretch; /* 자식 요소들 높이를 동일하게 */
+}
+.person-profile.show {
+    /* [수정] display: block -> flex */
+    display: flex; 
+}
+.person-profile h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* === [새로 추가] 프로필 메인 텍스트 래퍼 === */
+.profile-main-content {
+    flex-grow: 1; /* 남은 공간을 모두 차지 */
+    min-width: 0; /* 내용이 넘칠 경우 줄바꿈을 위함 */
+}
+
+/* === [수정] 우측 정보 상자 (Infobox) === */
+.infobox {
+    /* [제거] float: right; */
+    width: 280px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-infobox-bg);
+    margin-bottom: 20px;
+    font-size: 0.9em;
+    
+    /* [추가] Flex 아이템 속성 */
+    flex-shrink: 0; /* 줄어들지 않음 */
+    margin-left: 20px; /* 텍스트와의 간격 */
+}
+.infobox-header {
+    background-color: var(--color-infobox-header);
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+    font-size: 1.1em;
+}
+.infobox-image-placeholder {
+    width: calc(100% - 20px);
+    height: 200px;
+    background-color: #ccc;
+    margin: 10px;
+}
+.infobox-caption {
+    text-align: center;
+    font-size: 0.9em;
+    padding: 0 10px 10px;
+    border-bottom: 1px solid var(--color-border);
+}
+.infobox-data {
+    width: 100%;
+    border-collapse: collapse;
+}
+.infobox-data th,
+.infobox-data td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+}
+.infobox-data th {
+    width: 35%;
+    font-weight: bold;
+}
+.infobox-data tr:last-child th,
+.infobox-data tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* === 4. 우측 고정 사이드바 === */
+.appearance-sidebar {
+    position: sticky;
+    top: 70px; 
+    width: 180px;
+    font-size: 0.85em;
+    z-index: 10;
+    margin: 20px;
+    height: fit-content; 
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+.appearance-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 8px;
+}
+.appearance-header strong {
+    margin-right: 10px;
+}
+
+/* '보기' 옵션(라디오) 스타일 */
+.appearance-options {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px; /* 필터 리스트와 간격 */
+}
+.appearance-options li {
+    margin-top: 10px;
+}
+.appearance-options li:first-child,
+.appearance-options li:nth-child(4),
+.appearance-options li:nth-child(7) {
+    font-weight: bold;
+    margin-top: 15px;
+}
+.appearance-options li label {
+    display: block;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.appearance-options input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* 필터 리스트 스타일 */
+.filter-list {
+    list-style: none;
+    padding: 0;
+}
+.filter-list li {
+    margin-bottom: 8px;
+}
+.filter-btn {
+    background: none;
+    border: none;
+    color: var(--color-link);
+    cursor: pointer;
+    text-align: left;
+    padding: 5px;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 1em;
+}
+.filter-btn:hover {
+    background-color: #eaf3ff;
+}
+.filter-btn.active {
+    font-weight: bold;
+    color: var(--color-text);
+    background-color: #f8f9fa;
+}
+
+
+/* === 5. '보기' 숨김/드롭다운 관련 스타일 (변경 없음) === */
+.appearance-moved-notice {
+    display: none; 
+    align-items: center;
+    margin-right: 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: var(--color-text);
+    order: 5; 
+    margin-left: 20px;
+}
+.appearance-moved-notice.show {
+    display: flex; 
+}
+.appearance-icon-button {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.appearance-moved-notice p {
+    padding: 8px 8px 8px 0;
+    transition: opacity 0.5s ease, width 0.5s ease, padding 0.5s ease;
+    white-space: nowrap;
+    opacity: 1;
+    width: auto; 
+}
+.appearance-moved-notice p.hidden {
+    opacity: 0;
+    width: 0;
+    padding: 0;
+}
+.appearance-icon-placeholder {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-text);
+    border-radius: 3px;
+    margin-right: 0; 
+    position: relative;
+}
+.appearance-icon-placeholder::before {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 1px;
+    background: var(--color-text);
+    left: 20%;
+    top: 3px;
+    box-shadow: 0 3px 0 var(--color-text), 0 6px 0 var(--color-text);
+}
+
+.appearance-dropdown {
+    display: none; 
+    position: absolute;
+    top: 45px; 
+    right: 120px; 
+    width: 200px;
+    background-color: var(--color-bg-content);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 300;
+}
+.appearance-dropdown.show {
+    display: block;
+}
+.appearance-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    border-bottom: 1px solid var(--color-border-content);
+}
+.appearance-dropdown-header span {
+    font-weight: bold;
+    color: var(--color-text);
+}
+.appearance-dropdown-header a {
+    font-size: 0.9em;
+}
+.appearance-dropdown .appearance-options {
+    padding: 10px 15px; 
+    margin-bottom: 0; 
+}
+.appearance-dropdown .filter-list {
+    padding: 10px 15px; 
+}
+
+
+/* JS에서 사용할 유틸리티 클래스 */
+.hidden {
+    display: none !important;
+}
