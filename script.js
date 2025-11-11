@@ -22,11 +22,22 @@ settingsPanel.addEventListener('change', (event) => {
             bodyElement.classList.add(`width-${settingValue}`);
         
         } else if (settingName === 'theme') {
+            
+            // --- 👇 [수정됨] 테마 적용 및 localStorage 저장 ---
+            let themeToApply = settingValue; // 'light', 'dark', 'auto'
+            
             if (settingValue === 'auto') {
-                htmlElement.setAttribute('data-theme', 'light'); 
-            } else {
-                htmlElement.setAttribute('data-theme', settingValue);
+                themeToApply = 'light'; // 'auto'는 'light' 테마를 적용
             }
+            
+            // 1. <html> 태그에 즉시 적용
+            htmlElement.setAttribute('data-theme', themeToApply);
+            
+            // 2. 사용자의 *선택*('auto', 'light', 'dark')을 localStorage에 저장
+            localStorage.setItem('userThemeChoice', settingValue); 
+            // --- 👆 [수정 완료] ---
+
+        }
         }
     }
 });
