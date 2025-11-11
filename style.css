@@ -284,12 +284,14 @@ sup {
     border-bottom: 1px solid var(--border-color-light);
 }
 
-/* 2-5. 인물 정보 상자 - 서브타이틀 (수정) */
 .infobox-person .subtitle {
-    text-align: center; /* ★ 이 속성을 추가합니다. */
+    text-align: center;
     font-size: 0.9em;
     margin: 5px 0;
     color: var(--text-color-secondary);
+    
+    /* 👇 이 줄을 추가합니다 */
+    padding: 0 10px; /* 👈 다른 요소들과 동일하게 좌우 10px 여백 추가 */
 }
 
 /* 2-6. 인물 정보 상자 - 이미지 (수정됨) */
