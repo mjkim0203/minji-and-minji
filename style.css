@@ -331,3 +331,21 @@ sup {
     font-weight: 600;
     background-color: var(--page-bg);
 }
+
+/* ---
+ * infobox가 다음 항목을 침범하지 않도록 수정
+--- */
+
+/* article-body 클래스를 가진 요소 내의 모든 <hr> 태그, 
+   또는 .person-profile 내부의 <hr> 태그에 적용됩니다. 
+   (기존 코드를 보니 .person-profile이 더 적합하네요) 
+*/
+.person-profile hr {
+    clear: both; /* ★ 이 한 줄이 핵심입니다. */
+    
+    /* 기존에 없었다면 <hr> 스타일도 추가합니다 */
+    margin-top: 30px; /* 위 항목과 여유 공간 */
+    margin-bottom: 20px; /* 아래 항목과 여유 공간 */
+    border: 0;
+    border-top: 1px solid var(--border-color-light);
+}
