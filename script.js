@@ -70,3 +70,45 @@ searchInput.addEventListener('input', (event) => {
         }
     });
 });
+
+
+
+/*
+============================================
+★ 3. '임시' 편집 기능 (새로 추가된 코드)
+============================================
+*/
+
+// 1. 필요한 요소들을 선택합니다.
+const editButton = document.getElementById('edit-button');
+const contentArea = document.getElementById('content-area');
+
+// 2. '편집' 버튼을 클릭했을 때의 동작을 정의합니다.
+editButton.addEventListener('click', (event) => {
+    event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 막음
+
+    if (contentArea.isContentEditable) {
+        // --- 2-1. 현재 '편집 모드'일 때 (저장 클릭) ---
+        contentArea.contentEditable = false; // 편집 기능 끄기
+        editButton.textContent = '편집'; // 버튼 텍스트 '편집'으로
+        editButton.style.color = 'var(--link-color)';
+        
+        // (선택사항) 방문자의 브라우저에 임시 저장
+        localStorage.setItem('savedContent', contentArea.innerHTML);
+
+    } else {
+        // --- 2-2. '편집 모드'가 아닐 때 (편집 클릭) ---
+        contentArea.contentEditable = true; // ★ HTML 콘텐츠를 편집 가능하게 만듦
+        contentArea.focus(); // 콘텐츠 영역에 커서를 둠
+        editButton.textContent = '저장'; // 버튼 텍스트 '저장'으로
+        editButton.style.color = '#008000'; // 저장 버튼은 초록색으로
+    }
+});
+
+// (선택사항) 페이지가 로드될 때, 브라우저에 임시 저장된 내용이 있으면 불러오기
+window.addEventListener('load', () => {
+    const savedContent = localStorage.getItem('savedContent');
+    if (savedContent) {
+        contentArea.innerHTML = savedContent;
+    }
+});
