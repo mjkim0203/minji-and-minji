@@ -1,498 +1,333 @@
-/* === 전역 설정 === */
+/* --- CSS 변수 (테마 관리) --- */
 :root {
-    --color-bg: #ffffff;
-    --color-bg-content: #ffffff;
-    --color-text: #202122;
-    --color-border: #a2a9b1;
-    --color-border-content: #c8ccd1;
-    --color-link: #36c;
-    --color-infobox-header: #ff8ddc;
-    --color-infobox-bg: #f8f9fa;
+    --page-bg: #f6f6f6;
+    --content-bg: #ffffff;
+    --panel-bg: #f8f9fa;
+    --text-color: #202122;
+    --text-color-secondary: #555;
+    --border-color: #a7d7f9;
+    --border-color-light: #c8ccd1;
+    --link-color: #0645ad;
+    --link-color-visited: #0b0080;
+    --hatnote-bg: #f8f9fa;
+    --code-bg: #f8f9fa;
+    --radio-active-color: #0645ad;
 }
 
-/* 다크 모드 (JS로 body에 .theme-dark 클래스 추가 시) */
-body.theme-dark {
-    --color-bg: #1a1a1a;
-    --color-bg-content: #222222;
-    --color-text: #e1e3e4;
-    --color-border: #5a5a5a;
-    --color-border-content: #4d4d4d;
-    --color-link: #6af;
-    --color-infobox-bg: #2b2b2b;
+[data-theme="dark"] {
+    --page-bg: #121212;
+    --content-bg: #1e1e1e;
+    --panel-bg: #2a2a2a;
+    --text-color: #e0e0e0;
+    --text-color-secondary: #bbb;
+    --border-color: #3a3a3a;
+    --border-color-light: #555;
+    --link-color: #6ea8ff;
+    --link-color-visited: #9c78ff;
+    --hatnote-bg: #2c2c2c;
+    --code-bg: #2c2c2c;
+    --radio-active-color: #6ea8ff;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+/* --- 1-1. 기본 및 레이아웃 (코드 1 기반) --- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    font-size: 16px;
-    line-height: 1.6;
+    margin: 0;
+    background-color: var(--page-bg);
+    color: var(--text-color);
+    transition: background-color 0.2s, color 0.2s;
 }
 
 a {
-    color: var(--color-link);
+    color: var(--link-color);
     text-decoration: none;
 }
-a:hover {
-    text-decoration: underline;
+a:hover { text-decoration: underline; }
+a:visited { color: var(--link-color-visited); }
+
+#page-wrapper {
+    max-width: 1400px; /* ★ 기본 너비 */
+    margin: 0 auto; /* 중앙 정렬 */
+    background-color: var(--page-bg);
+    transition: max-width 0.3s ease-in-out;
 }
 
-/* === 1. 상단 알림 배너 === */
-.site-notice {
-    background-color: #fdfdfd;
-    border: 1px solid #a2a9b1;
-    padding: 10px 40px;
-    text-align: center;
-    font-size: 0.9em;
-    position: relative;
-    background-color: var(--color-bg-content);
-}
-.close-btn {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.8em;
-    color: var(--color-link);
-}
-
-/* === 2. 메인 헤더 === */
-.main-header {
+#header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px;
-    height: 50px;
-    background-color: var(--color-bg-content);
-    border-bottom: 1px solid var(--color-border);
-}
-.header-left {
-    display: flex;
-    align-items: center;
-}
-.sidebar-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    margin-right: 10px;
-}
-.sidebar-toggle span {
-    display: block;
-    width: 20px;
-    height: 3px;
-    background-color: var(--color-text);
-    margin-bottom: 4px;
-}
-.sidebar-toggle span:last-child {
-    margin-bottom: 0;
-}
-.logo-area {
-    display: flex;
-    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--content-bg);
+    border-bottom: 1px solid var(--border-color);
 }
 
-.logo-text h1 {
-    font-size: 1em;
-    font-weight: normal; 
-}
+.logo { display: flex; align-items: center; }
+.logo img { height: 40px; margin-right: 10px; }
+.logo span { font-size: 12px; }
 
-.search-area {
-    flex-grow: 1;
-    margin: 0 20px;
-    display: flex;
-    justify-content: center;
-}
-.search-area form {
-    display: flex;
-    border: 1px solid var(--color-border);
-    border-radius: 2px;
-    width: 100%;
-    max-width: 500px;
-}
-.search-area input {
-    flex-grow: 1;
-    border: none;
-    padding: 8px 10px;
-    font-size: 0.9em;
-    background-color: var(--color-bg-content);
-    color: var(--color-text);
-}
-.search-area button {
-    background-color: #f8f9fa;
-    border: none;
-    border-left: 1px solid var(--color-border);
-    padding: 0 12px;
-    cursor: pointer;
-    background-color: var(--color-bg);
-    color: var(--color-text);
-}
-.user-links {
-    margin-left: auto;
-    white-space: nowrap; 
-}
-.user-links a {
-    font-size: 0.9em;
-    margin-left: 15px;
-}
-
-/* === 3. 메인 컨테이너 === */
-.main-container {
-    display: flex;
-    position: relative;
-}
-
-/* 3-1. 좌측 사이드바 */
-.left-sidebar {
-    position: fixed;
-    left: -250px; 
-    top: 50px;
-    width: 250px;
-    height: calc(100vh - 50px);
-    background-color: var(--color-bg-content);
-    border-right: 1px solid var(--color-border);
-    padding: 20px;
-    transition: left 0.3s ease;
-    z-index: 100;
-}
-.left-sidebar.show {
-    left: 0;
-}
-.left-sidebar nav a {
-    display: block;
-    padding: 8px 0;
-    font-size: 0.9em;
-}
-
-/* 3-2. 콘텐츠 래퍼 */
-.content-wrapper-flex {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-}
-
-/* 3-3. 중앙 콘텐츠 영역 */
-.content-area {
-    flex-grow: 1; 
-    max-width: 1000px; 
-    margin: 20px 0; 
-    padding: 30px;
-    background-color: var(--color-bg-content);
-    border: 1px solid var(--color-border-content);
-    min-height: 100vh;
-}
-.page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-bottom: 1px solid var(--color-border-content);
-    padding-bottom: 10px;
-}
-.page-title-section {
-    display: flex;
-    flex-direction: column;
-}
-.page-title {
-    font-size: 1.8em;
-    font-weight: normal;
-    margin-bottom: 10px;
-}
-.page-tabs-left a,
-.page-tabs-right a {
-    display: inline-block;
-    padding: 5px 10px;
-    font-size: 0.9em;
-    border-bottom: 2px solid transparent;
-}
-.page-tabs-left a.active {
-    font-weight: bold;
-    border-bottom-color: var(--color-link);
-}
-.page-tabs-right {
-    margin-left: auto;
-}
-.page-tabs-right a.active {
-    font-weight: bold;
-}
-
-.article-body {
-    padding-top: 20px;
-}
-.article-subtitle {
-    font-size: 0.8em;
-    color: var(--color-text);
-    border-bottom: 1px solid var(--color-border-content);
-    padding-bottom: 10px;
-}
-.article-body p {
-    margin-top: 1em;
-}
-
-/* === [수정] 인물 프로필 섹션 (Flexbox 적용) === */
-.person-profile {
-    display: none; 
-    padding-top: 20px;
-    border-bottom: 1px solid var(--color-border-content);
-    margin-bottom: 20px;
-    
-    /* [추가] Flexbox 레이아웃으로 변경 */
-    display: flex;
-    flex-direction: row; /* 텍스트 | Infobox */
-    align-items: stretch; /* 자식 요소들 높이를 동일하게 */
-}
-.person-profile.show {
-    /* [수정] display: block -> flex */
-    display: flex; 
-}
-.person-profile h2 {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* === [새로 추가] 프로필 메인 텍스트 래퍼 === */
-.profile-main-content {
-    flex-grow: 1; /* 남은 공간을 모두 차지 */
-    min-width: 0; /* 내용이 넘칠 경우 줄바꿈을 위함 */
-}
-
-/* === [수정] 우측 정보 상자 (Infobox) === */
-.infobox {
-    /* [제거] float: right; */
-    width: 280px;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-infobox-bg);
-    margin-bottom: 20px;
-    font-size: 0.9em;
-    
-    /* [추가] Flex 아이템 속성 */
-    flex-shrink: 0; /* 줄어들지 않음 */
-    margin-left: 20px; /* 텍스트와의 간격 */
-}
-.infobox-header {
-    background-color: var(--color-infobox-header);
-    color: white;
-    text-align: center;
-    font-weight: bold;
+.search-bar input {
     padding: 8px;
-    font-size: 1.1em;
+    border: 1px solid var(--border-color-light);
+    border-radius: 2px 0 0 2px;
+    background-color: var(--content-bg);
+    color: var(--text-color);
 }
-.infobox-image-placeholder {
-    width: calc(100% - 20px);
-    height: 200px;
-    background-color: #ccc;
-    margin: 10px;
+.search-bar button {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color-light);
+    background-color: var(--panel-bg);
+    color: var(--text-color);
+    border-left: none;
+    border-radius: 0 2px 2px 0;
+    cursor: pointer;
 }
-.infobox-caption {
+.user-links a { margin-left: 15px; font-size: 14px; }
+
+/* --- 1-2. 메인 3단 레이아웃 --- */
+#main-wrapper {
+    display: flex;
+    padding-top: 20px;
+}
+
+#left-sidebar {
+    flex: 0 0 160px; /* 160px 고정 너비 */
+    padding-left: 20px;
+}
+#left-sidebar ul { list-style: none; padding: 0; margin: 0; }
+#left-sidebar li a { display: block; padding: 8px 0; font-size: 14px; }
+
+#content-area {
+    flex: 1; /* 남은 중앙 공간 모두 사용 */
+    background-color: var(--content-bg);
+    border: 1px solid var(--border-color);
+    padding: 25px 30px;
+    margin-left: 10px;
+    min-width: 0;
+    line-height: 1.7;
+    font-size: 16px; /* ★ 기본 글자 크기 */
+    transition: font-size 0.2s;
+}
+
+/* --- 1-3. 콘텐츠 스타일 (코드 1) --- */
+.tabs { border-bottom: 1px solid var(--border-color-light); margin-bottom: 15px; }
+.tabs a { display: inline-block; padding: 10px 15px; font-size: 14px; border: 1px solid transparent; margin-bottom: -1px; }
+.tabs a.active {
+    border-color: var(--border-color-light);
+    border-bottom-color: var(--content-bg);
+    border-radius: 4px 4px 0 0;
+}
+
+h1 { font-size: 28px; font-weight: 500; border-bottom: 1px solid var(--border-color-light); padding-bottom: 10px; margin-top: 0; }
+
+.infobox-right {
+    float: right;
+    width: 250px;
+    margin: 10px 0 10px 30px;
+    border: 1px solid var(--border-color-light);
+    padding: 10px;
+    font-size: 14px;
+    background-color: var(--panel-bg);
+    clear: right;
+}
+.infobox-right img { width: 100%; height: auto; display: block; }
+.infobox-right figcaption { padding: 10px 0 5px; text-align: center; font-size: 13px; color: var(--text-color-secondary); }
+
+.hatnote { font-style: italic; color: var(--text-color-secondary); padding: 5px; border-bottom: 1px solid var(--border-color); background-color: var(--hatnote-bg); margin-bottom: 15px; }
+.formula { font-family: 'Times New Roman', Times, serif; font-size: 1.2em; text-align: center; background-color: var(--code-bg); padding: 10px; border: 1px dashed var(--border-color-light); margin: 20px 0; }
+
+/* --- 2-1. 오른쪽 설정 패널 (코드 2) --- */
+#settings-panel {
+    flex: 0 0 220px; /* 220px 고정 너비 */
+    padding: 20px;
+    margin-left: 10px;
+    margin-right: 20px;
+    
+    /* --- 스티키 속성 --- */
+    position: sticky;
+    top: 20px; 
+    align-self: flex-start; 
+    height: fit-content; 
+}
+
+#settings-panel fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+    border-bottom: 1px solid var(--border-color-light);
+    padding-bottom: 15px;
+}
+#settings-panel legend {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding: 0;
+}
+#settings-panel div { margin-bottom: 10px; }
+#settings-panel input[type="radio"] { display: none; }
+#settings-panel label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+/* 커스텀 라디오 버튼 */
+#settings-panel label::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color-light);
+    background-color: var(--content-bg);
+    transition: 0.2s;
+}
+/* 선택된 버튼 */
+#settings-panel input[type="radio"]:checked + label::before {
+    border-color: var(--radio-active-color);
+    background-color: var(--radio-active-color);
+    box-shadow: 0 0 0 2px var(--content-bg), 0 0 0 4px var(--radio-active-color);
+}
+
+/* * =============================================
+ * ★ JavaScript가 적용할 '결과' 스타일
+ * =============================================
+*/
+
+/* --- 1. 글자 크기 --- */
+body.font-small #content-area {
+    font-size: 14px;
+}
+body.font-standard #content-area {
+    font-size: 16px;
+}
+body.font-large #content-area {
+    font-size: 18px;
+}
+
+/* --- 2. 너비 --- */
+body.width-standard #page-wrapper {
+    max-width: 1400px;
+}
+body.width-wide #page-wrapper {
+    max-width: 95%; /* 꽉 찬 화면 (약간의 여백) */
+}
+
+/* --- 3. 색 (테마) --- */
+/* (테마는 CSS 변수를 통해 이미 적용됨) */
+
+/* --- 
+ * '조화 진동자' 콘텐츠 스타일 (이전 것)
+ * .infobox-right, .formula 등은 삭제하거나 
+ * 아래 스타일로 덮어쓰셔도 됩니다.
+--- */
+
+
+/* ---
+ * '제임스 D. 왓슨' 인물 소개용 스타일
+--- */
+
+/* 2-1. 본문 소제목 (h2) 스타일 */
+#content-area h2 {
+    font-size: 1.5em; /* 24px */
+    font-weight: 500;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid var(--border-color-light);
+    padding-bottom: 5px;
+}
+
+/* 2-2. 소제목 옆 [편집] 링크 */
+.edit-link {
+    font-size: 0.7em;
+    font-weight: normal;
+    color: var(--link-color);
+    vertical-align: middle;
+    margin-left: 5px;
+}
+.edit-link a {
+    color: var(--link-color);
+}
+
+/* 2-3. 각주 스타일 (sup) */
+sup {
+    font-size: 0.8em;
+    vertical-align: super;
+    line-height: 1;
+}
+
+/* 2-4. 인물 정보 상자 (Infobox) - 수정됨 */
+.infobox-person {
+    float: right;
+    
+    /* --- 👇 이 3줄로 수정/교체합니다 --- */
+    width: 35%;       /* 고정 280px 대신, 부모 너비의 35%를 차지 */
+    max-width: 280px; /* 하지만, 280px보다 더 커지지는 않도록 함 */
+    min-width: 220px; /* 아무리 작아져도 220px는 유지 (테이블 깨짐 방지) */
+    /* --- 👆 여기까지 --- */
+    
+    margin: 5px 0 15px 30px;
+    border: 1px solid var(--border-color-light);
+    background-color: var(--panel-bg);
+    font-size: 14px;
+    clear: right;
+    line-height: 1.5;
+}ㅋ
+
+/* 2-5. 인물 정보 상자 - 제목 */
+.infobox-person h3 {
+    font-size: 1.3em;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    background-color: var(--page-bg);
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.infobox-person .subtitle {
     text-align: center;
     font-size: 0.9em;
-    padding: 0 10px 10px;
-    border-bottom: 1px solid var(--color-border);
+    margin: 5px 0;
+    color: var(--text-color-secondary);
 }
-.infobox-data {
+
+/* 2-6. 인물 정보 상자 - 이미지 (수정됨) */
+.infobox-person .infobox-image {
+    padding: 10px;
+    margin: 0;
+}
+
+.infobox-person img {
+    width: 100%;      /* 컨테이너 너비에 100% 맞춤 */
+    height: 300px;     /* ★ 모든 이미지의 높이를 300px로 고정 (이 값을 조절하세요) */
+    display: block;
+    object-fit: cover; /* ★ 이미지가 비율을 유지하며, 300px 높이의 박스를 꽉 채우도록 함 (잘리는 부분 발생) */
+    object-position: center top; /* ★ 이미지를 자를 때 위쪽을 기준으로 중앙 정렬 (얼굴이 잘리는 것을 방지) */
+}
+
+.infobox-person figcaption {
+    padding: 10px 0 5px;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--text-color-secondary);
+}
+
+/* 2-7. 인물 정보 상자 - 테이블 */
+.infobox-person table {
     width: 100%;
     border-collapse: collapse;
 }
-.infobox-data th,
-.infobox-data td {
+
+.infobox-person th,
+.infobox-person td {
     padding: 8px 12px;
-    border-bottom: 1px solid var(--color-border);
+    border-top: 1px solid var(--border-color-light);
     text-align: left;
     vertical-align: top;
 }
-.infobox-data th {
-    width: 35%;
-    font-weight: bold;
-}
-.infobox-data tr:last-child th,
-.infobox-data tr:last-child td {
-    border-bottom: none;
-}
 
-
-/* === 4. 우측 고정 사이드바 === */
-.appearance-sidebar {
-    position: sticky;
-    top: 70px; 
-    width: 180px;
-    font-size: 0.85em;
-    z-index: 10;
-    margin: 20px;
-    height: fit-content; 
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-}
-.appearance-header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border-bottom: none;
-    padding-bottom: 0;
-    margin-bottom: 8px;
-}
-.appearance-header strong {
-    margin-right: 10px;
-}
-
-/* '보기' 옵션(라디오) 스타일 */
-.appearance-options {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px; /* 필터 리스트와 간격 */
-}
-.appearance-options li {
-    margin-top: 10px;
-}
-.appearance-options li:first-child,
-.appearance-options li:nth-child(4),
-.appearance-options li:nth-child(7) {
-    font-weight: bold;
-    margin-top: 15px;
-}
-.appearance-options li label {
-    display: block;
-    margin-left: 5px;
-    cursor: pointer;
-}
-.appearance-options input[type="radio"] {
-    margin-right: 5px;
-}
-
-/* 필터 리스트 스타일 */
-.filter-list {
-    list-style: none;
-    padding: 0;
-}
-.filter-list li {
-    margin-bottom: 8px;
-}
-.filter-btn {
-    background: none;
-    border: none;
-    color: var(--color-link);
-    cursor: pointer;
-    text-align: left;
-    padding: 5px;
-    width: 100%;
-    border-radius: 4px;
-    font-size: 1em;
-}
-.filter-btn:hover {
-    background-color: #eaf3ff;
-}
-.filter-btn.active {
-    font-weight: bold;
-    color: var(--color-text);
-    background-color: #f8f9fa;
-}
-
-
-/* === 5. '보기' 숨김/드롭다운 관련 스타일 (변경 없음) === */
-.appearance-moved-notice {
-    display: none; 
-    align-items: center;
-    margin-right: 15px;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    font-size: 0.85em;
-    color: var(--color-text);
-    order: 5; 
-    margin-left: 20px;
-}
-.appearance-moved-notice.show {
-    display: flex; 
-}
-.appearance-icon-button {
-    background: none;
-    border: none;
-    padding: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.appearance-moved-notice p {
-    padding: 8px 8px 8px 0;
-    transition: opacity 0.5s ease, width 0.5s ease, padding 0.5s ease;
-    white-space: nowrap;
-    opacity: 1;
-    width: auto; 
-}
-.appearance-moved-notice p.hidden {
-    opacity: 0;
-    width: 0;
-    padding: 0;
-}
-.appearance-icon-placeholder {
-    width: 16px;
-    height: 16px;
-    border: 2px solid var(--color-text);
-    border-radius: 3px;
-    margin-right: 0; 
-    position: relative;
-}
-.appearance-icon-placeholder::before {
-    content: '';
-    position: absolute;
-    width: 60%;
-    height: 1px;
-    background: var(--color-text);
-    left: 20%;
-    top: 3px;
-    box-shadow: 0 3px 0 var(--color-text), 0 6px 0 var(--color-text);
-}
-
-.appearance-dropdown {
-    display: none; 
-    position: absolute;
-    top: 45px; 
-    right: 120px; 
-    width: 200px;
-    background-color: var(--color-bg-content);
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    z-index: 300;
-}
-.appearance-dropdown.show {
-    display: block;
-}
-.appearance-dropdown-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    font-size: 0.9em;
-    border-bottom: 1px solid var(--color-border-content);
-}
-.appearance-dropdown-header span {
-    font-weight: bold;
-    color: var(--color-text);
-}
-.appearance-dropdown-header a {
-    font-size: 0.9em;
-}
-.appearance-dropdown .appearance-options {
-    padding: 10px 15px; 
-    margin-bottom: 0; 
-}
-.appearance-dropdown .filter-list {
-    padding: 10px 15px; 
-}
-
-
-/* JS에서 사용할 유틸리티 클래스 */
-.hidden {
-    display: none !important;
+.infobox-person th {
+    width: 70px; /* 라벨 너비 고정 */
+    font-weight: 600;
+    background-color: var(--page-bg);
 }
