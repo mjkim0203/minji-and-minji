@@ -75,3 +75,28 @@ searchInput.addEventListener('input', (event) => {
         }
     });
 });
+
+
+
+
+/*
+============================================
+★ 3. 페이지 로드 시 UI 설정 (테마 버튼 동기화)
+============================================
+*/
+// 페이지가 로드되었을 때 실행됩니다.
+window.addEventListener('load', () => {
+    
+    // 1. 저장된 테마 선택값을 가져옵니다.
+    const savedThemeChoice = localStorage.getItem('userThemeChoice');
+    
+    if (savedThemeChoice) {
+        // 2. 저장된 값(예: 'dark')과 일치하는 라디오 버튼을 찾습니다.
+        const themeRadio = document.querySelector(`#settings-panel input[name="theme"][value="${savedThemeChoice}"]`);
+        
+        if (themeRadio) {
+            // 3. 일치하는 버튼을 'checked' 상태로 만듭니다.
+            themeRadio.checked = true;
+        }
+    }
+});
