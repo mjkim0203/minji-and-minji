@@ -256,12 +256,14 @@ sup {
     line-height: 1;
 }
 
-/* 2-4. 인물 정보 상자 (Infobox) */
+/* 2-4. 인물 정보 상자 (Infobox) - 이전으로 되돌림 */
 .infobox-person {
     float: right;
-    width: 35%;
-    max-width: 280px;
-    min-width: 220px;
+    
+    /* --- 👇 유동 너비(35%)를 예전의 고정 너비(280px)로 되돌립니다 --- */
+    width: 280px;
+    /* max-width, min-width 속성 제거 */
+    
     margin: 5px 0 15px 30px;
     border: 1px solid var(--border-color-light);
     background-color: var(--panel-bg);
@@ -269,7 +271,6 @@ sup {
     clear: right;
     line-height: 1.5;
 }
-
 /* 2-5. 인물 정보 상자 - 제목 */
 .infobox-person h3 {
     font-size: 1.3em;
