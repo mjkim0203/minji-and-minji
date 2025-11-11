@@ -1,66 +1,197 @@
-/*
-============================================
-★ 1. 설정 패널 기능 (글꼴, 너비, 테마)
-============================================
-*/
-const settingsPanel = document.getElementById('settings-panel');
-const bodyElement = document.body;
-const htmlElement = document.documentElement; // <html> 태그
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통합 레이아웃 예제 - 위키백과</title>
 
-settingsPanel.addEventListener('change', (event) => {
-    
-    if (event.target.type === 'radio') {
-        const settingName = event.target.name;
-        const settingValue = event.target.value;
+    <link rel="stylesheet" href="style.css">
+</head>
 
-        if (settingName === 'font-size') {
-            bodyElement.classList.remove('font-small', 'font-standard', 'font-large');
-            bodyElement.classList.add(`font-${settingValue}`);
+<body class="font-standard width-standard">
+
+    <div id="page-wrapper">
+        <header id="header">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/150px-Wikipedia-logo-v2.svg.png" alt="로고">
+                <span>우리 모두의<br>백과사전</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="위키백과 검색" id="search-input">
+                <button>검색</button>
+            </div>
+            <nav class="user-links">
+                <a href="#">계정 만들기</a>
+                <a href="#">로그인</a>
+            </nav>
+        </header>
+
+        <div id="main-wrapper">
+            
+            <nav id="left-sidebar">
+                <ul>
+                    <li><a href="#">대문</a></li>
+                    <li><a href="#">최근 바뀜</a></li>
+                    <li><a href="#">임의의 문서</a></li>
+                    <li><a href="#">기부</a></li>
+                </ul>
+            </nav>
+
+            <main id="content-area">
+                <nav class="tabs">
+                    <a href="#" class="active">문서</a>
+                    <a href="#">토론</a>
+                </nav>
+
+                <article class="person-profile">
+                    <h1>제임스 D. 왓슨</h1>
+                    <aside class="infobox-person">
+                        <h3>제임스 듀이 왓슨</h3>
+                        <p class="subtitle">James Dewey Watson</p>
+                        
+                        <figure class="infobox-image">
+                            <img src="images/250px-James_Watson_2004.jpg" alt="제임스 D. 왓슨">
+                            <figcaption>제임스 D. 왓슨</figcaption>
+                        </figure>
+                        
+                        <table>
+                            <tbody>
+                                <tr><th>출생</th><td>1928년 4월 6일<br>미국 일리노이주 시카고</td></tr>
+                                <tr><th>사망</th><td>2025년 11월 6일(97세)</td></tr>
+                                <tr><th>성별</th><td>남성</td></tr>
+                            </tbody>
+                        </table>
+                    </aside>
+            
+                    <div class="hatnote">
+                        제임스 왓슨은 여기로 연결됩니다. 다른 뜻에 대해서는 <a href="#">제임스 왓슨 (동명이인)</a> 문서를 참고하십시오.
+                    </div>
+            
+                    <p>
+                        <b>제임스 듀이 왓슨</b>(<a href="#">영어</a>: James Dewey Watson, 1928년 4월 6일 ~ 2025년 11월 6일)은 미국의 분자 생물학자, 유전학자, 동물학자이다. 1953년 <a href="#">프랜시스 크릭</a>과 함께 <a href="#">DNA</a>의 이중 나선 구조에 관한 논문<sup><a href="#">[1]</a></sup>을 네이처에 발표한 것으로 잘 알려져 있다. 이 업적으로 1962년 <a href="#">프랜시스 크릭</a>, <a href="#">모리스 윌킨스</a>와 함께 노벨 생리학·의학상을 수상했다.
+                    </p>
+            
+                    <p>
+                        그는 <a href="#">시카고 대학교</a> 학사 후에 <a href="#">인디애나 대학교</a>에서 석사 학위를 취득했고, 영국 <a href="#">케임브리지 대학교</a>의 <a href="#">캐번디시 연구소</a>에서 연구했다. 연구소에서 그는 미래의 공동연구자인 프랜시스 크릭을 처음으로 만나게 된다. DNA의 구조 규명 이후 미국의 <a href="#">하버드 대학교</a> 생화학과 조교수로 부임해 연구를 해오다 <a href="#">게놈 프로젝트</a>를 주창했고 이 프로젝트의 초대 책임자를 맡기도 했다.
+                    </p>
+                    <hr> 
+                </article>
+            
+                <article class="person-profile">
+                    <h1>알베르트 아인슈타인</h1>
+                    <aside class="infobox-person">
+                        <h3>알베르트 아인슈타인</h3>
+                        <p class="subtitle">Albert Einstein</p>
+                        
+                        <figure class="infobox-image">
+                            <img src="images/250px-Einstein_1921_by_F_Schmutzer_-_restoration.jpg" alt="알베르트 아인슈타인">
+                            <figcaption>알베르트 아인슈타인</figcaption>
+                        </figure>
+                        
+                        <table>
+                            <tbody>
+                                <tr><th>출생</th><td>1879년 3월 14일<br>독일 울름</td></tr>
+                                <tr><th>사망</th><td>1955년 4월 18일(76세)<br>미국 프린스턴</td></tr>
+                                <tr><th>성별</th><td>남성</td></tr>
+                            </tbody>
+                        </table>
+                    </aside>
+            
+                    <div class="hatnote">
+                        알베르트 아인슈타인은 물리학자이자 상대성 이론을 정립한 인물입니다.
+                    </div>
+            
+                    <p>
+                        <b>알베르트 아인슈타인</b>(<a href="#">독일어</a>: Albert Einstein, 1879년 3월 14일 ~ 1955년 4월 18일)은 독일 태생의 이론 물리학자로, 일반 상대성이론을 개발한 것으로 가장 잘 알려져 있다. 이 이론은 현대 물리학의 두 가지 기둥 중 하나이며, 다른 하나는 양자 역학이다. 그의 질량-에너지 등가 공식 <i>E</i>=<i>mc</i><sup>2</sup>은 세계에서 가장 유명한 방정식 중 하나이다.
+                    </p>
+            
+                    <p>
+                        그는 상대론적 역학을 비롯한 여러 과학 분야에 지대한 영향을 미쳤으며, 1921년 광전 효과의 발견에 대한 공로로 노벨 물리학상을 수상했다. 그의 지적 업적과 독창성은 '아인슈타인'이라는 이름을 천재의 대명사로 만들었다.
+                    </p>
+                    <hr>
+                </article>
+            
+                <article class="person-profile">
+                    <h1>마리 퀴리</h1>
+                    <aside class="infobox-person">
+                        <h3>마리아 스크워도프스카 퀴리</h3>
+                        <p class="subtitle">Marie Curie</p>
+                        
+                        <figure class="infobox-image">
+                            <img src="images/250px-Marie_Curie_c._1920s.jpg" alt="마리 퀴리">
+                            <figcaption>마리 퀴리</figcaption>
+                        </figure>
+                        
+                        <table>
+                            <tbody>
+                                <tr><th>출생</th><td>1867년 11월 7일<br>폴란드 바르샤바</td></tr>
+                                <tr><th>사망</th><td>1934년 7월 4일(66세)<br>프랑스 파시</td></tr>
+                                <tr><th>성별</th><td>여성</td></tr>
+                            </tbody>
+                        </table>
+                    </aside>
+            
+                    <div class="hatnote">
+                        마리 퀴리는 방사능 연구의 선구자이자 노벨상을 두 번 수상한 유일한 과학자입니다.
+                    </div>
+            
+                    <p>
+                        <b>마리 퀴리</b>(<a href="#">폴란드어</a>: Marie Curie, 1867년 11월 7일 ~ 1934년 7월 4일)는 폴란드와 프랑스 국적의 물리학자, 화학자이자 방사능 분야의 선구자이다. 그녀는 여성 최초의 노벨상 수상자이며, 물리학과 화학 분야에서 모두 노벨상을 수상한 유일한 인물이다. 또한 두 분야에서 노벨상을 수상한 유일한 인물이기도 하다.
+                    </p>
+            
+                    <p>
+                        그녀는 남편 피에르 퀴리와 함께 라듐과 폴로늄 원소를 발견했으며, 방사능 연구에 대한 공로로 1903년 노벨 물리학상을 수상했다. 1911년에는 라듐과 폴로늄을 분리한 공로로 노벨 화학상을 단독 수상했다. 그녀의 업적은 과학계에 혁명적인 영향을 미쳤다.
+                    </p>
+                    <hr>
+                </article>
+            </main>
+
+            <aside id="settings-panel">
+                <fieldset>
+                    <legend>글</legend>
+                    <div>
+                        <input type="radio" id="font-small" name="font-size" value="small">
+                        <label for="font-small">작음</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="font-standard" name="font-size" value="standard" checked>
+                        <label for="font-standard">표준</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="font-large" name="font-size" value="large">
+                        <label for="font-large">큼</label>
+                    </div>
+                </fieldset>
         
-        } else if (settingName === 'layout-width') {
-            bodyElement.classList.remove('width-standard', 'width-wide');
-            bodyElement.classList.add(`width-${settingValue}`);
+                <fieldset>
+                    <legend>너비</legend>
+                    <div>
+                        <input type="radio" id="width-standard" name="layout-width" value="standard" checked>
+                        <label for="width-standard">표준</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="width-wide" name="layout-width" value="wide">
+                        <label for="width-wide">넓게</label>
+                    </div>
+                </fieldset>
         
-        } else if (settingName === 'theme') {
-            if (settingValue === 'auto') {
-                htmlElement.setAttribute('data-theme', 'light'); 
-            } else {
-                htmlElement.setAttribute('data-theme', settingValue);
-            }
-        }
-    }
-});
+                <fieldset>
+                    <legend>색 (베타)</legend>
+                    <div>
+                        <input type="radio" id="theme-auto" name="theme" value="auto">
+                        <label for="theme-auto">자동</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="theme-light" name="theme" value="light" checked>
+                        <label for="theme-light">라이트</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="theme-dark" name="theme" value="dark">
+                        <label for="theme-dark">다크</label>
+                    </div>
+                </fieldset>
+            </aside>
 
-/*
-============================================
-★ 2. 검색창 필터링 기능
-============================================
-*/
-
-// 1. 검색창과 모든 인물 프로필(article) 요소를 선택합니다.
-const searchInput = document.getElementById('search-input');
-const allProfiles = document.querySelectorAll('.person-profile');
-
-// 2. 검색창에 'input'(키보드 입력) 이벤트가 발생할 때마다 함수를 실행합니다.
-searchInput.addEventListener('input', (event) => {
-    
-    // 3. 사용자가 입력한 검색어를 가져와서, 비교하기 쉽도록 소문자로 바꿉니다.
-    const searchTerm = event.target.value.toLowerCase();
-
-    // 4. 모든 프로필을 하나씩 확인합니다 (forEach 반복문).
-    allProfiles.forEach(profile => {
-        
-        // 5. 각 프로필의 <h1> 제목 텍스트를 가져와서 소문자로 바꿉니다.
-        const titleElement = profile.querySelector('h1');
-        const title = titleElement.textContent.toLowerCase();
-
-        // 6. 제목(title)에 검색어(searchTerm)가 포함되어 있는지 확인합니다.
-        if (title.includes(searchTerm)) {
-            // 7. (포함 O) 프로필을 다시 보이게 합니다.
-            profile.style.display = ''; // 'block'이나 'flex' 대신 ''로 기본값 복원
-        } else {
-            // 8. (포함 X) 프로필을 숨깁니다.
-            profile.style.display = 'none';
-        }
-    });
-});
+        </div> </div> <script src="script.js"></script>
+</body>
+</html>
