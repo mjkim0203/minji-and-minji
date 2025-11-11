@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소개 - 통합 레이아웃 예제</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-standard width-standard">
+
+    <div id="page-wrapper">
+        <header id="header">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/150px-Wikipedia-logo-v2.svg.png" alt="로고">
+                <span>우리 모두의<br>백과사전</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="위키백과 검색" id="search-input">
+                <button>검색</button>
+            </div>
+            <nav class="user-links">
+                <a href="#">계정 만들기</a>
+                <a href="#">로그인</a>
+            </nav>
+        </header>
+
+        <div id="main-wrapper">
+            
+            <nav id="left-sidebar">
+                <ul>
+                    <li><a href="about.html">소개</a></li>
+                    <li><a href="#">최근 바뀜</a></li>
+                    <li><a href="#">임의의 문서</a></li>
+                    <li><a href="#">기부</a></li>
+                </ul>
+            </nav>
+
+            <main id="content-area">
+                <nav class="tabs">
+                    <a href="#" class="active">문서</a>
+                    <a href="#">토론</a>
+                </nav>
+
+                <h1>소개</h1>
+                <article class="article-body">
+                    <p>
+                        이 웹사이트는 mjkim0203 님의 GitHub Pages 프로젝트입니다.
+                    </p>
+                    <p>
+                        HTML, CSS, JavaScript를 사용하여 위키백과와 유사한 레이아웃을 구현하는 연습을 하고 있습니다.
+                    </p>
+                    <p>
+                        여기에 원하시는 소개 내용을 자유롭게 작성하시면 됩니다.
+                    </p>
+                </article>
+            </main>
+
+            <aside id="settings-panel">
+                <fieldset>
+                    <legend>글</legend>
+                    <div>
+                        <input type="radio" id="font-small" name="font-size" value="small">
+                        <label for="font-small">작음</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="font-standard" name="font-size" value="standard" checked>
+                        <label for="font-standard">표준</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="font-large" name="font-size" value="large">
+                        <label for="font-large">큼</label>
+                    </div>
+                </fieldset>
+        
+                <fieldset>
+                    <legend>너비</legend>
+                    <div>
+                        <input type="radio" id="width-standard" name="layout-width" value="standard" checked>
+                        <label for="width-standard">표준</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="width-wide" name="layout-width" value="wide">
+                        <label for="width-wide">넓게</label>
+                    </div>
+                </fieldset>
+        
+                <fieldset>
+                    <legend>색 (베타)</legend>
+                    <div>
+                        <input type="radio" id="theme-auto" name="theme" value="auto">
+                        <label for="theme-auto">자동</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="theme-light" name="theme" value="light" checked>
+                        <label for="theme-light">라이트</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="theme-dark" name="theme" value="dark">
+                        <label for="theme-dark">다크</label>
+                    </div>
+                </fieldset>
+            </aside>
+
+        </div> </div> <script src="script.js"></script>
+</body>
+</html>
