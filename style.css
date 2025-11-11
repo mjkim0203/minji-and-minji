@@ -372,6 +372,7 @@ sup {
     .search-bar input {
         width: auto;       /* 데스크탑의 350px 고정값 덮어쓰기 */
         flex-grow: 1;      /* input이 남는 공간을 모두 차지하도록 함 */
+        min-width: 0;
     }
 
     .logo {
