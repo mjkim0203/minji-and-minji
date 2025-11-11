@@ -427,15 +427,7 @@ sup {
         display: none; /* 모바일에서는 공간이 좁으므로 숨기기 */
     }
 
-    /* --- 4. 인물 정보 상자 (Infobox) --- */
-    .infobox-person {
-        float: none;         /* float(띄우기) 해제 */
-        width: 100%;         /* 너비 100% (화면 꽉 차게) */
-        max-width: 100%;     /* 고정값 덮어쓰기 */
-        min-width: 100%;     /* 고정값 덮어쓰기 */
-        margin: 15px 0 20px 0; /* 좌우 마진 제거 */
-    }
-
+   
     /* --- 5. 모바일용 글꼴 크기 조정 --- */
     h1 {
         font-size: 24px; /* H1 태그(제목) 살짝 줄이기 */
