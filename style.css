@@ -29,7 +29,7 @@
     --radio-active-color: #6ea8ff;
 }
 
-/* --- 1-1. 기본 및 레이아웃 (코드 1 기반) --- */
+/* --- 1-1. 기본 및 레이아웃 --- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin: 0;
@@ -46,8 +46,8 @@ a:hover { text-decoration: underline; }
 a:visited { color: var(--link-color-visited); }
 
 #page-wrapper {
-    max-width: 1400px; /* ★ 기본 너비 */
-    margin: 0 auto; /* 중앙 정렬 */
+    max-width: 1400px;
+    margin: 0 auto;
     background-color: var(--page-bg);
     transition: max-width 0.3s ease-in-out;
 }
@@ -66,6 +66,7 @@ a:visited { color: var(--link-color-visited); }
 .logo span { font-size: 12px; }
 
 .search-bar input {
+    width: 350px; /* ★ 검색창 너비 2배로 확장 */
     padding: 8px;
     border: 1px solid var(--border-color-light);
     border-radius: 2px 0 0 2px;
@@ -90,25 +91,25 @@ a:visited { color: var(--link-color-visited); }
 }
 
 #left-sidebar {
-    flex: 0 0 160px; /* 160px 고정 너비 */
+    flex: 0 0 160px;
     padding-left: 20px;
 }
 #left-sidebar ul { list-style: none; padding: 0; margin: 0; }
 #left-sidebar li a { display: block; padding: 8px 0; font-size: 14px; }
 
 #content-area {
-    flex: 1; /* 남은 중앙 공간 모두 사용 */
+    flex: 1;
     background-color: var(--content-bg);
     border: 1px solid var(--border-color);
     padding: 25px 30px;
     margin-left: 10px;
     min-width: 0;
     line-height: 1.7;
-    font-size: 16px; /* ★ 기본 글자 크기 */
+    font-size: 16px;
     transition: font-size 0.2s;
 }
 
-/* --- 1-3. 콘텐츠 스타일 (코드 1) --- */
+/* --- 1-3. 콘텐츠 스타일 (인물 프로필) --- */
 .tabs { border-bottom: 1px solid var(--border-color-light); margin-bottom: 15px; }
 .tabs a { display: inline-block; padding: 10px 15px; font-size: 14px; border: 1px solid transparent; margin-bottom: -1px; }
 .tabs a.active {
@@ -117,32 +118,132 @@ a:visited { color: var(--link-color-visited); }
     border-radius: 4px 4px 0 0;
 }
 
-h1 { font-size: 28px; font-weight: 500; border-bottom: 1px solid var(--border-color-light); padding-bottom: 10px; margin-top: 0; }
-
-.infobox-right {
-    float: right;
-    width: 250px;
-    margin: 10px 0 10px 30px;
-    border: 1px solid var(--border-color-light);
-    padding: 10px;
-    font-size: 14px;
-    background-color: var(--panel-bg);
-    clear: right;
+#content-area h1 {
+    font-size: 28px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-color-light);
+    padding-bottom: 10px;
+    margin-top: 0;
 }
-.infobox-right img { width: 100%; height: auto; display: block; }
-.infobox-right figcaption { padding: 10px 0 5px; text-align: center; font-size: 13px; color: var(--text-color-secondary); }
 
-.hatnote { font-style: italic; color: var(--text-color-secondary); padding: 5px; border-bottom: 1px solid var(--border-color); background-color: var(--hatnote-bg); margin-bottom: 15px; }
-.formula { font-family: 'Times New Roman', Times, serif; font-size: 1.2em; text-align: center; background-color: var(--code-bg); padding: 10px; border: 1px dashed var(--border-color-light); margin: 20px 0; }
+#content-area h2 {
+    font-size: 1.5em;
+    font-weight: 500;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid var(--border-color-light);
+    padding-bottom: 5px;
+}
 
-/* --- 2-1. 오른쪽 설정 패널 (코드 2) --- */
+.edit-link {
+    font-size: 0.7em;
+    font-weight: normal;
+    color: var(--link-color);
+    vertical-align: middle;
+    margin-left: 5px;
+}
+.edit-link a { color: var(--link-color); }
+
+sup {
+    font-size: 0.8em;
+    vertical-align: super;
+    line-height: 1;
+}
+
+.hatnote { 
+    font-style: italic; 
+    color: var(--text-color-secondary); 
+    padding: 5px; 
+    border-bottom: 1px solid var(--border-color); 
+    background-color: var(--hatnote-bg); 
+    margin-bottom: 15px; 
+}
+
+/* --- 2-4. 인물 정보 상자 (Infobox) --- */
+.infobox-person {
+    float: right;
+    width: 280px; /* ★ 고정 너비로 되돌림 */
+    margin: 5px 0 15px 30px;
+    border: 1px solid var(--border-color-light);
+    background-color: var(--panel-bg);
+    font-size: 14px;
+    clear: right;
+    line-height: 1.5;
+}
+
+.infobox-person h3 {
+    font-size: 1.3em;
+    text-align: center; /* ★ 정렬 수정 */
+    padding: 10px;
+    margin: 0;
+    background-color: var(--page-bg);
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.infobox-person .subtitle {
+    text-align: center; /* ★ 정렬 수정 */
+    font-size: 0.9em;
+    margin: 5px 0;
+    color: var(--text-color-secondary);
+    padding: 0 10px; /* ★ 정렬 수정 (여백 추가) */
+}
+
+.infobox-person .infobox-image {
+    padding: 10px;
+    margin: 0;
+}
+
+.infobox-person img {
+    width: 100%;
+    height: 300px;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.infobox-person figcaption {
+    padding: 10px 0 5px;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--text-color-secondary);
+}
+
+.infobox-person table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.infobox-person th,
+.infobox-person td {
+    padding: 8px 10px; /* ★ 정렬 수정 (12px -> 10px) */
+    border-top: 1px solid var(--border-color-light);
+    text-align: left;
+    vertical-align: top;
+}
+
+.infobox-person th {
+    width: 70px; 
+    font-weight: 600;
+    background-color: var(--page-bg);
+}
+
+/* ★ Infobox 침범 방지 */
+.person-profile hr {
+    clear: both;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid var(--border-color-light);
+}
+
+
+/* --- 2-1. 오른쪽 설정 패널 --- */
 #settings-panel {
-    flex: 0 0 220px; /* 220px 고정 너비 */
+    flex: 0 0 220px;
     padding: 20px;
     margin-left: 10px;
     margin-right: 20px;
     
-    /* --- 스티키 속성 --- */
     position: sticky;
     top: 20px; 
     align-self: flex-start; 
@@ -170,7 +271,6 @@ h1 { font-size: 28px; font-weight: 500; border-bottom: 1px solid var(--border-co
     cursor: pointer;
     font-size: 14px;
 }
-/* 커스텀 라디오 버튼 */
 #settings-panel label::before {
     content: '';
     display: inline-block;
@@ -182,7 +282,6 @@ h1 { font-size: 28px; font-weight: 500; border-bottom: 1px solid var(--border-co
     background-color: var(--content-bg);
     transition: 0.2s;
 }
-/* 선택된 버튼 */
 #settings-panel input[type="radio"]:checked + label::before {
     border-color: var(--radio-active-color);
     background-color: var(--radio-active-color);
@@ -210,237 +309,5 @@ body.width-standard #page-wrapper {
     max-width: 1400px;
 }
 body.width-wide #page-wrapper {
-    max-width: 95%; /* 꽉 찬 화면 (약간의 여백) */
-}
-
-/* --- 3. 색 (테마) --- */
-/* (테마는 CSS 변수를 통해 이미 적용됨) */
-
-/* --- 
- * '조화 진동자' 콘텐츠 스타일 (이전 것)
- * .infobox-right, .formula 등은 삭제하거나 
- * 아래 스타일로 덮어쓰셔도 됩니다.
---- */
-
-
-/* ---
- * '제임스 D. 왓슨' 인물 소개용 스타일
---- */
-
-/* 2-1. 본문 소제목 (h2) 스타일 */
-#content-area h2 {
-    font-size: 1.5em; /* 24px */
-    font-weight: 500;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-    border-bottom: 1px solid var(--border-color-light);
-    padding-bottom: 5px;
-}
-
-/* 2-2. 소제목 옆 [편집] 링크 */
-.edit-link {
-    font-size: 0.7em;
-    font-weight: normal;
-    color: var(--link-color);
-    vertical-align: middle;
-    margin-left: 5px;
-}
-.edit-link a {
-    color: var(--link-color);
-}
-
-/* 2-3. 각주 스타일 (sup) */
-sup {
-    font-size: 0.8em;
-    vertical-align: super;
-    line-height: 1;
-}
-
-/* 2-4. 인물 정보 상자 (Infobox) - 이전으로 되돌림 */
-.infobox-person {
-    float: right;
-    
-    /* --- 👇 유동 너비(35%)를 예전의 고정 너비(280px)로 되돌립니다 --- */
-    width: 280px;
-    /* max-width, min-width 속성 제거 */
-    
-    margin: 5px 0 15px 30px;
-    border: 1px solid var(--border-color-light);
-    background-color: var(--panel-bg);
-    font-size: 14px;
-    clear: right;
-    line-height: 1.5;
-}
-/* 2-5. 인물 정보 상자 - 제목 */
-.infobox-person h3 {
-    font-size: 1.3em;
-    text-align: center;
-    padding: 10px;
-    margin: 0;
-    background-color: var(--page-bg);
-    border-bottom: 1px solid var(--border-color-light);
-}
-
-.infobox-person .subtitle {
-    text-align: center;
-    font-size: 0.9em;
-    margin: 5px 0;
-    color: var(--text-color-secondary);
-    padding: 0 10px; /* ★ 1. 이 줄이 추가되었습니다. */
-}
-
-/* 2-6. 인물 정보 상자 - 이미지 */
-.infobox-person .infobox-image {
-    padding: 10px;
-    margin: 0;
-}
-
-.infobox-person img {
-    width: 100%;
-    height: 300px;
-    display: block;
-    object-fit: cover;
-    object-position: center top;
-}
-
-.infobox-person figcaption {
-    padding: 10px 0 5px;
-    text-align: center;
-    font-size: 0.9em;
-    color: var(--text-color-secondary);
-}
-
-/* 2-7. 인물 정보 상자 - 테이블 */
-.infobox-person table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.infobox-person th,
-.infobox-person td {
-    padding: 8px 10px; /* ★ 2. 좌우 여백이 12px에서 10px로 수정되었습니다. */
-    border-top: 1px solid var(--border-color-light);
-    text-align: left;
-    vertical-align: top;
-}
-
-.infobox-person th {
-    width: 70px; 
-    font-weight: 600;
-    background-color: var(--page-bg);
-}
-
-/* ---
- * infobox가 다음 항목을 침범하지 않도록 수정
---- */
-
-/* article-body 클래스를 가진 요소 내의 모든 <hr> 태그, 
-   또는 .person-profile 내부의 <hr> 태그에 적용됩니다. 
-   (기존 코드를 보니 .person-profile이 더 적합하네요) 
-*/
-.person-profile hr {
-    clear: both; /* ★ 이 한 줄이 핵심입니다. */
-    
-    /* 기존에 없었다면 <hr> 스타일도 추가합니다 */
-    margin-top: 30px; /* 위 항목과 여유 공간 */
-    margin-bottom: 20px; /* 아래 항목과 여유 공간 */
-    border: 0;
-    border-top: 1px solid var(--border-color-light);
-}
-
-
-/* =============================================
- * ★ 4. 반응형 모바일 스타일 (Media Query)
- * =============================================
- * 800px 이하의 화면 크기에서 적용됩니다.
-*/
-@media (max-width: 800px) {
-
-    /* --- 1. 헤더 (수정) --- */
-    #header {
-        /* flex-wrap: wrap; (삭제) -> 줄바꿈을 하지 않습니다. */
-        justify-content: space-between; 
-        padding: 10px 15px;
-    }
-
-    .search-bar {
-        /* width: 100%; (삭제) */
-        /* order: 3; (삭제) */
-        /* margin-top: 10px; (삭제) */
-        display: flex;
-        
-        /* (새로 추가) */
-        flex: 1; /* ★ 로고와 링크를 제외한 모든 공간을 차지 */
-        min-width: 120px; /* ★ 검색창의 최소 너비 (너무 좁아지지 않게) */
-        margin: 0 10px; /* 좌우 여백 */
-    }
-    
-    .search-bar input {
-        width: 100%; /* ★ 부모(.search-bar) 너비를 꽉 채움 */
-        /* width: auto; (삭제) */
-        /* flex-grow: 1; (삭제) */
-        min-width: 0; /* (유지) */
-    }
-
-    /* 로고와 링크가 너무 찌그러지지 않게 설정 */
-    .logo {
-        flex-shrink: 0; /* 로고가 찌그러지는 것을 방지 */
-    }
-    .user-links {
-        flex-shrink: 0; /* 사용자 링크가 찌그러지는 것을 방지 */
-    }
-
-
-    /* --- 2. 메인 레이아웃 (3단 -> 1단) --- */
-    /* (이하 #main-wrapper, #content-area 등은 수정 없이 그대로 둡니다) */
-    #main-wrapper {
-        flex-direction: column; /* 수평(row) 정렬을 수직(column)으로 변경 */
-        padding-top: 10px;
-    }
-
-    /* ... (이전의 나머지 모바일 코드) ... */
-}
-
-    /* --- 3. 컬럼 순서 및 크기 변경 --- */
-    
-    /* 1순위: 메인 콘텐츠 */
-    #content-area {
-        order: 1; /* 가장 먼저 보이도록 순서 변경 */
-        margin: 0 10px 10px 10px; /* 좌우 마진 10px로 변경 */
-        padding: 15px; /* 내부 여백도 살짝 줄임 */
-    }
-
-    /* 2순위: 설정 패널 */
-    #settings-panel {
-        order: 2; /* 두 번째로 보이도록 */
-        width: auto; /* 고정 너비 해제 */
-        margin: 0 10px 10px 10px;
-        
-        /* 스크롤 고정(sticky) 기능 해제 (수직으로 쌓이므로) */
-        position: static; 
-        height: auto;
-    }
-
-    /* 3순위: 왼쪽 사이드바 (숨김) */
-    #left-sidebar {
-        order: 3;
-        display: none; /* 모바일에서는 공간이 좁으므로 숨기기 */
-    }
-
-   
-    /* --- 5. 모바일용 글꼴 크기 조정 --- */
-    h1 {
-        font-size: 24px; /* H1 태그(제목) 살짝 줄이기 */
-    }
-
-    /* JS로 변경되는 글꼴 크기도 모바일 기준으로 재조정 */
-    body.font-small #content-area {
-        font-size: 14px;
-    }
-    body.font-standard #content-area {
-        font-size: 16px; /* 모바일 표준 크기 */
-    }
-    body.font-large #content-area {
-        font-size: 18px;
-    }
+    max-width: 95%;
 }
