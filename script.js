@@ -1,145 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
+// 1. 필요한 HTML 요소들을 선택합니다.
+const settingsPanel = document.getElementById('settings-panel');
+const bodyElement = document.body;
+const htmlElement = document.documentElement; // <html> 태그
 
-    // 1. === [수정된 기능] 상단 알림 배너 닫기 ===
-    const noticeBanner = document.getElementById('site-notice');
-    const closeNoticeBtn = document.getElementById('close-notice-btn');
-    // [추가] 헤더 요소를 가져옵니다.
-    const mainHeader = document.querySelector('.main-header'); 
+// 2. 설정 패널(#settings-panel) 내부에서 'change' 이벤트가 발생하는지 감지합니다.
+settingsPanel.addEventListener('change', (event) => {
     
-    if (noticeBanner && closeNoticeBtn && mainHeader) { // mainHeader가 있는지 확인
-        closeNoticeBtn.addEventListener('click', () => {
+    if (event.target.type === 'radio') {
+        const settingName = event.target.name; // 예: "font-size"
+        const settingValue = event.target.value; // 예: "small"
+
+        // 3. 어떤 설정이 바뀌었는지에 따라 다른 동작을 수행합니다.
+        
+        if (settingName === 'font-size') {
+            // 글자 크기 변경: <body>에 클래스 적용
+            bodyElement.classList.remove('font-small', 'font-standard', 'font-large');
+            bodyElement.classList.add(`font-${settingValue}`);
+        
+        } else if (settingName === 'layout-width') {
+            // 너비 변경: <body>에 클래스 적용
+            bodyElement.classList.remove('width-standard', 'width-wide');
+            bodyElement.classList.add(`width-${settingValue}`);
+        
+        } else if (settingName === 'theme') {
+            // 테마 변경: <html>에 data-theme 속성 적용
             
-            // [추가] 1. 배너를 숨기기 *전에* 실제 높이를 가져옵니다.
-            const bannerHeight = noticeBanner.offsetHeight;
-
-            // [추가] 2. 가져온 높이만큼을 main-header의 margin-top으로 설정합니다.
-            mainHeader.style.marginTop = bannerHeight + 'px';
-
-            // [기존] 3. 배너를 숨깁니다.
-            noticeBanner.classList.add('hidden');
-        });
-    }
-
-    // 2. 좌측 사이드바 토글 (변경 없음)
-    const sidebarToggleBtn = document.getElementById('sidebar-toggle');
-    const leftSidebar = document.getElementById('left-sidebar');
-
-    if (sidebarToggleBtn && leftSidebar) {
-        sidebarToggleBtn.addEventListener('click', () => {
-            leftSidebar.classList.toggle('show');
-        });
-    }
-
-    // 3. 테마 변경 (변경 없음)
-    const themeRadios = document.querySelectorAll('input[name="theme"]');
-    themeRadios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            const theme = e.target.value;
-            if (theme === 'dark') {
-                document.body.classList.add('theme-dark');
-                document.body.classList.remove('theme-light');
+            if (settingValue === 'auto') {
+                // '자동'을 위한 로직 (시스템 설정 감지)
+                // 우선 '라이트'로 설정하고, 필요시 미디어 쿼리 로직을 추가할 수 있습니다.
+                // (참고: 실제 '자동'은 CSS의 prefers-color-scheme 미디어 쿼리로 구현하는 것이 더 좋습니다)
+                htmlElement.setAttribute('data-theme', 'light'); 
             } else {
-                document.body.classList.add('theme-light');
-                document.body.classList.remove('theme-dark');
-            }
-        });
-    });
-    
-    // 4. '보기' 메뉴 숨기기/복원 로직 (변경 없음)
-    const hideAppearanceBtn = document.getElementById('hide-appearance-btn');
-    const appearanceSidebar = document.getElementById('appearance-sidebar');
-    const appearanceMovedNotice = document.getElementById('appearance-moved-notice');
-    const appearanceNoticeText = document.getElementById('appearance-notice-text');
-    const appearanceIconButton = document.getElementById('appearance-icon-button');
-    const appearanceDropdown = document.getElementById('appearance-dropdown');
-    const moveToSidebarBtn = document.getElementById('move-to-sidebar-btn');
-    let noticeTimer = null;
-
-    if (hideAppearanceBtn) {
-        hideAppearanceBtn.addEventListener('click', (e) => {
-            e.preventDefault(); 
-            appearanceSidebar.classList.add('hidden');
-            appearanceMovedNotice.classList.add('show');
-            appearanceNoticeText.classList.remove('hidden');
-            if (noticeTimer) clearTimeout(noticeTimer);
-            noticeTimer = setTimeout(() => {
-                appearanceNoticeText.classList.add('hidden');
-            }, 5000);
-        });
-    }
-    if (appearanceIconButton) {
-        appearanceIconButton.addEventListener('click', () => {
-            appearanceDropdown.classList.toggle('show');
-        });
-    }
-    if (moveToSidebarBtn) {
-        moveToSidebarBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            appearanceDropdown.classList.remove('show');
-            appearanceMovedNotice.classList.remove('show');
-            appearanceSidebar.classList.remove('hidden');
-            if (noticeTimer) clearTimeout(noticeTimer);
-            appearanceNoticeText.classList.remove('hidden');
-        });
-    }
-
-    // 5. & 6. 필터링 기능 (변경 없음)
-    const searchForm = document.querySelector('.search-area form');
-    const searchInput = searchForm.querySelector('input');
-    const allFilterButtons = document.querySelectorAll('.filter-btn');
-    const allPersonProfiles = document.querySelectorAll('.person-profile');
-
-    function filterProfiles(filterName) {
-        allPersonProfiles.forEach(profile => {
-            profile.classList.remove('show');
-        });
-        allFilterButtons.forEach(btn => {
-            btn.classList.remove('active');
-        });
-
-        if (filterName === "all") {
-            allPersonProfiles.forEach(profile => {
-                profile.classList.add('show');
-            });
-        } else if (filterName) {
-            const targetProfile = document.querySelector(`.person-profile[data-name="${filterName}"]`);
-            if (targetProfile) {
-                targetProfile.classList.add('show');
+                htmlElement.setAttribute('data-theme', settingValue); // 'light' 또는 'dark'
             }
         }
-
-        const activeButtons = document.querySelectorAll(`.filter-btn[data-filter-name="${filterName}"]`);
-        activeButtons.forEach(btn => {
-            btn.classList.add('active');
-        });
     }
-
-    if (searchForm) {
-        searchForm.addEventListener('submit', (e) => {
-            e.preventDefault(); 
-            const searchTerm = searchInput.value.trim();
-            filterProfiles(searchTerm);
-        });
-    }
-
-    allFilterButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const filterName = button.dataset.filterName;
-            filterProfiles(filterName);
-
-            if (filterName !== "all") {
-                searchInput.value = filterName;
-            } else {
-                searchInput.value = ""; 
-            }
-            
-            if (appearanceDropdown.classList.contains('show')) {
-                appearanceDropdown.classList.remove('show');
-            }
-        });
-    });
-
-    filterProfiles(''); // '백색 페이지'로 시작
-
 });
