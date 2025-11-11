@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>통합 레이아웃 예제 - 위키백과</title>
+    <script>
+        (function() {
+            // 1. 브라우저 저장소에서 'userThemeChoice' 값을 가져옵니다.
+            const choice = localStorage.getItem('userThemeChoice');
+            
+            // 2. 저장된 값에 따라 <html> 태그에 data-theme을 설정합니다.
+            if (choice === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else if (choice === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else if (choice === 'auto') {
+                document.documentElement.setAttribute('data-theme', 'light'); // 'auto'는 'light'로 적용
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light'); // 저장된 값이 없으면 'light' 기본값
+            }
+        })();
+    </script>
 
     <link rel="stylesheet" href="style.css">
 </head>
