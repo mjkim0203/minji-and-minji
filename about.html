@@ -4,6 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>소개 - 통합 레이아웃 예제</title>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소개 - 통합 레이아웃 예제</title>
+
+    <script>
+        (function() {
+            const choice = localStorage.getItem('userThemeChoice');
+            if (choice === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else if (choice === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else if (choice === 'auto') {
+                document.documentElement.setAttribute('data-theme', 'light'); // 'auto'는 'light'로 적용
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light'); // 기본값
+            }
+        })();
+    </script>
+        
+    <link rel="stylesheet" href="style.css">
+</head>
 
     <link rel="stylesheet" href="style.css">
 </head>
