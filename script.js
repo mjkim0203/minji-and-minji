@@ -36,8 +36,6 @@ settingsPanel.addEventListener('change', (event) => {
             // 2. 사용자의 *선택*('auto', 'light', 'dark')을 localStorage에 저장
             localStorage.setItem('userThemeChoice', settingValue); 
             // --- 👆 [수정 완료] ---
-
-        }
         }
     }
 });
@@ -75,9 +73,6 @@ searchInput.addEventListener('input', (event) => {
         }
     });
 });
-
-
-
 
 /*
 ============================================
