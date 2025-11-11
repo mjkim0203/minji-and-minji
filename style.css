@@ -323,7 +323,7 @@ sup {
 
 .infobox-person th,
 .infobox-person td {
-    padding: 8px 12px;
+    padding: 8px 10px; /* 👈 10px로 수정 */
     border-top: 1px solid var(--border-color-light);
     text-align: left;
     vertical-align: top;
