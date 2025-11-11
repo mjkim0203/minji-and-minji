@@ -1,240 +1,247 @@
-<body class="theme-light">
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통합 레이아웃 예제 - 위키백과</title>
 
-    <div class="site-notice" id="site-notice">
-        <p>민지와 민지와 민지와 민지, 그리고 민지</p>
-        <button class="close-btn" id="close-notice-btn">[닫기]</button>
-    </div>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <header class="main-header">
-        <div class="header-left">
-            <button class="sidebar-toggle" id="sidebar-toggle">
-                <span></span><span></span><span></span>
-            </button>
-            <div class="logo-area">
-                <div class="logo-text">
-                    <h1>민지와 민지와 민지와 민지,<b> 그리고 민지</h1>
-                </div>
+<body class="font-standard width-standard">
+
+    <div id="page-wrapper">
+        <header id="header">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/150px-Wikipedia-logo-v2.svg.png" alt="로고">
+                <span>민지와 민지와 민지와 민지<br>그리고 민지</span>
             </div>
-        </div>
-        <div class="search-area">
-            <form>
-                <input type="text" placeholder="민지를 찾아보기" />
-                <button type="submit">검색</button>
-            </form>
-        </div>
-        
-        <div class="appearance-moved-notice" id="appearance-moved-notice">
-            <button class="appearance-icon-button" id="appearance-icon-button">
-                <span class="appearance-icon-placeholder"></span>
-            </button>
-            <p id="appearance-notice-text">보기 메뉴는 이곳으로 이동되었습니다.</p>
-        </div>
-        
-        <nav class="user-links">
-            <a href="#">기여</a>
-            <a href="#">민지를 찾기</a>
-            <a href="#">이름을 남기기</a>
-        </nav>
-    </header>
-
-    <div class="appearance-dropdown" id="appearance-dropdown">
-        <div class="appearance-dropdown-header">
-            <span>사이드</span>
-            <a href="#" id="move-to-sidebar-btn">사이드바로 이동</a>
-        </div>
-        
-        <ul class="appearance-options">
-            <li>글</li>
-            <li><label><input type="radio" name="font-size-dd" value="small"> 적용</label></li>
-            <li><label><input type="radio" name="font-size-dd" value="large"> 큼</label></li>
-            <li>너비</li>
-            <li><label><input type="radio" name="width-dd" value="standard" checked> 표준</label></li>
-            <li><label><input type="radio" name="width-dd" value="wide"> 넓게</label></li>
-            <li>색 (베타)</li>
-            <li><label><input type="radio" name="theme" value="auto"> 자동</label></li>
-            <li><label><input type="radio" name="theme" value="light" checked> 라이트</label></li>
-            <li><label><input type="radio" name="theme" value="dark"> 다크</label></li>
-        </ul>
-        <ul class="filter-list">
-            <li><button class="filter-btn" data-filter-name="all">모두 보기</button></li>
-            <li><button class="filter-btn" data-filter-name="강민지">강민지</button></li>
-            <li><button class="filter-btn" data-filter-name="서솔">서솔</button></li>
-            <li><button class="filter-btn" data-filter-name="강민지(Maggie Kang)">강민지(Maggie Kang)</button></li>
-            <li><button class="filter-btn" data-filter-name="김민지">김민지</button></li> </ul>
-    </div>
-
-
-    <div class="main-container">
-        
-        <aside class="left-sidebar" id="left-sidebar">
-            <nav>
-                <a href="#">소개</a>
-                <a href="#">최근 바뀜</a>
-                <a href="#">임의의 문서로</a>
-                <a href="#">편집</a>
+            <div class="search-bar">
+                <input type="text" placeholder="위키백과 검색">
+                <button>검색</button>
+            </div>
+            <nav class="user-links">
+                <a href="#">계정 만들기</a>
+                <a href="#">로그인</a>
             </nav>
-        </aside>
+        </header>
 
-        <div class="content-wrapper-flex">
-            <main class="content-area">
-                <div class="page-header">
-                    <div class="page-title-section">
-                        <h1 class="page-title">인물 소개</h1>
-                        <nav class="page-tabs-left">
-                            <a href="#" class="active">문서</a>
-                            <a href="#">토론</a>
-                        </nav>
-                    </div>
-                    <nav class="page-tabs-right">
-                        <a href="#">22개 언어</a>
-                        <a href="#" class="active">읽기</a>
-                        <a href="#">편집</a>
-                        <a href="#">역사 보기</a>
-                        <a href="#">도구</a>
-                    </nav>
-                </div>
-
-                <article class="article-body">
-                    <p class="article-subtitle">민지와 민지와 민지와 민지, 그리고 민지</p>
-
-                    <section class="person-profile" data-name="강민지" id="profile-kang-minji-1">
-                        <div class="profile-main-content">
-                            <h2>민지의 별명들</h2>
-                            <p>
-                                다른 뜻에 대해서는 <a href="#">강민지 (동음이의)</a> 문서를 참고하십시오.
-                            </p>
-                            <p>
-                                별명들
-                              민지, Minji, 民志, 1반민지, 키큰민지, 안경민지,敏智, 2반민지, 먼지, 민지1, 서울민지, 긴머리민지, 미술민지, MJ, 뉴진스민지, MC민지, 敏智, Minzi, 민지쌤, 민지A, 김민, 엠지, 3반민지, 4층민지, 엠지, 체교과민지, 키작은민지, 초딩민지, 앞머리있는민지, 민지2, 단발민지, 김먼, 민줴이, 성대민지, 4반민지, 民智, 민쥐, 지, 최강민지, 민민, 5반민지, 중딩민지, 민지먼지, 6반민지, 같은반민지, 투애니원민지, 민자, 만지, 민지B, 먼지벌레, 玟池, 만자, 02년생민지, 21학번민지, 경기도민지, 24살민지, 22학번민지, 이대민지, 민민지, 이민지, 김민지, 최민지, 박민지, 문민지, 정민지, 강민지, 손민지, 채민지, 권민지, 방민지, 차민지, 송민지, 서민지, 양민지, 장민지, 유민지, 조민지
-                            </p>
-                        </div>
-                        <aside class="infobox">
-                            <div class="infobox-header">
-                                강민지<br>
-                                강조지 (Zozy)
-                            </div>
-                            <div class="infobox-image-placeholder"></div>
-                            <p class="infobox-caption">채널 '하말넘많'의 강민지</p>
-                            <table class="infobox-data">
-                                <tr><th>출생</th><td>1996년 9월 5일</td></tr>
-                                <tr><th>출생지</th><td>대구광역시</td></tr>
-                                <tr><th>채널</th><td>하말넘많</td></tr>
-                            </table>
-                        </aside>
-                    </section>
-
-                    <section class="person-profile" data-name="서솔" id="profile-seo-sol">
-                        <div class="profile-main-content">
-                             <h2>서솔</h2>
-                            <p>
-                                (이전 코드에서 H2가 '강민지'로 되어있어 ''로 수정합니다.)
-                            </p>
-                            <p>
-                                강민지는 2003년, 인천 출생이다. 이름은 작명소에서 받아온 이름 세 개 중, 하나를 선택하게 되어 짓게 되었다. 한문으로는 民知(백성 민, 알 지)라 쓰며, ‘백성들에게 이름을 널리 알려라’라는 의미를 가진다.
-                                강민지는 책, 커피, 산책이 취미다. 특히 요즘에는 우울한 단편집, 산미가 있는 드립 커피, 혼자 걷기를 좋아한다.
-                            </p>
-                            <p>
-                                2003년, 인천시 출생이다. 이름은 작명소에서 받아온 이름 세 개 중, 하나를 선택하게 되어 짓게 되었다. 한문으로는 民知(백성 민, 알 지)라 쓰며, ‘백성들에게 이름을 널리 알려라’라는 의미를 가진다. 강민지는 책, 커피, 산책이 취미다. 특히 요즘에는 우울한 단편집, 산미가 있는 드립 커피, 혼자 걷기를 좋아한다.
-
-
-                            </p>
-                        </div>
-                        <aside class="infobox">
-                            <div class="infobox-header">
-                                강민지<br>
-                               강민지
-                            </div>
-                            <div class="infobox-image-placeholder"></div>
-                            <p class="infobox-caption">서솔</p>
-                            <table class="infobox-data">
-                                <tr><th>출생</th><td>(정보 없음)</td></tr>
-                                <tr><th>출생지</th><td>(정보 없음)</td></tr>
-                                <tr><th>취미</th><td>(정보 없음)</td></tr>
-                            </table>
-                        </aside>
-                    </section>
-                    
-                    <section class="person-profile" data-name="강민지(Maggie Kang)" id="profile-maggie-kang">
-                         <div class="profile-main-content">
-                            <h2>강민지(Maggie Kang)</h2>
-                            <p>
-                                미국에서 활동하는 한국계 캐나다인 애니메이션 감독. 케이팝 데몬 헌터스의 총감독을 맡으면서 인지도가 올라갔다. 서울 명동 태생으로, 한국 이름은 강민지이다. 5살 때 가족과 함께 캐나다로 이민을 가서 시민권을 얻었다.
-                            </p>
-                            <p>
-                                고등학교 졸업 후 셰리던 칼리지(Sheridan College)에 진학하여 애니메이션을 전공했다. 3학년 때 드림웍스에 스카우트되면서[6] 본격적인 애니메이션 커리어를 시작하게 된다. 드림웍스에서 근무하며 장화신은 고양이, 가디언즈, 쿵푸팬더 3등의 애니메이션 영화에서 스토리 아티스트를 맡으며 커리어를 쌓았고, 레고 닌자고 무비에서는 스토리 핵심 지위 역할을 맡게 된다.
-                            </p>
-                         </div>
-                         <aside class="infobox">
-                            <div class="infobox-header">
-                                강민지<br>
-                                (Maggie Kang)
-                            </div>
-                            <div class="infobox-image-placeholder"></div>
-                            <p class="infobox-caption">애니메이션 감독 매기 강</p>
-                            <table class="infobox-data">
-                                <tr><th>직업</th><td>애니메이션 감독</td></tr>
-                                <tr><th>국적</th><td>캐나다</td></tr>
-                                <tr><th>활동</th><td>드림웍스, 넷플릭스</td></tr>
-                            </table>
-                        </aside>
-                    </section>
-                         
-                    <section class="person-profile" data-name="김민지" id="profile-kim-minji-1">
-                        <div class="profile-main-content">
-                           <h2>김민지</h2>
-                            <p>
-                                다른 뜻에 대해서는 <a href="#">김민지 (동음이의)</a> 문서를 참고하십시오.
-                            </p>
-                            <p>
-                                김민지는 대한민국의 가수이자 5인조 걸그룹 NewJeans, NJZ의 멤버다. 강원도 춘천시에서 태어났으며, 2004년 5월 7일생이다. 2022년에 데뷔하여 팀에서 중저음 위주의 보컬을 담당한다.
-                            </p>
-                        </div> 
-                        </section>
-   
-                    <section class="person-profile" data-name="김민지" id="profile-kim-minji-2">
-                        <div class="profile-main-content">
-                           <h2>김민지</h2>
-                            <p>
-                                다른 뜻에 대해서는 <a href="#">김민지 (동음이의)</a> 문서를 참고하십시오.
-                            </p>
-                            <p>
-                                김민지는 2002년 2월 3일, 서울시 목동에서 태어났다. 효자초등학교를 졸업한 뒤 계원예술중학교와 고등학교를 나왔다. 최근 본 영화 &lt;린다 린다 린다&gt;에 빠져 있다. 밴드 음악을 좋아하며, 평소 진행하고 있는 작품에 대한 고민이 많은 상태다.
-                            </p>
-                        </div>  
-                        </section>
-              
-                </article>
-            </main>
-        </div> 
-
-        <aside class="appearance-sidebar" id="appearance-sidebar">
-            <div class="appearance-header">
-                <strong>보기</strong> 
-                <a href="#" id="hide-appearance-btn">숨기기</a>
-            </div>
+        <div id="main-wrapper">
             
-            <ul class="appearance-options">
-                <li>글</li>
-                <li><label><input type="radio" name="font-size" value="small"> 적용</label></li>
-                <li><label><input type="radio" name="font-size" value="large"> 큼</label></li>
-                <li>너비</li>
-                <li><label><input type="radio" name="width" value="standard" checked> 표준</label></li>
-                <li><label><input type="radio" name="width" value="wide"> 넓게</label></li>
-                <li>색 (베타)</li>
-                <li><label><input type="radio" name="theme" value="auto"> 자동</label></li>
-                <li><label><input type="radio" name="theme" value="light" checked> 라이트</label></li>
-                <li><label><input type="radio" name="theme" value="dark"> 다크</label></li>
-            </ul>
+            <nav id="left-sidebar">
+                <ul>
+                    <li><a href="#">대문</a></li>
+                    <li><a href="#">최근 바뀜</a></li>
+                    <li><a href="#">임의의 문서</a></li>
+                    <li><a href="#">기부</a></li>
+                </ul>
+            </nav>
 
-            <ul class="filter-list">
-                <li><button class="filter-btn" data-filter-name="all">모두 보기</button></li>
-                <li><button class="filter-btn" data-filter-name="강민지">강민지</button></li>
-                <li><button class="filter-btn" data-filter-name="서솔">서솔</button></li>
-                <li><button class="filter-btn" data-filter-name="강민지(Maggie Kang)">강민지(Maggie Kang)</button></li>
-                <li><button class="filter-btn" data-filter-name="김민지">김민지</button></li> </ul>
+            <main id="content-area">
+    <nav class="tabs">
+        <a href="#" class="active">문서</a>
+        <a href="#">토론</a>
+    </nav>
+
+    <article class="person-profile">
+        <h1>제임스 D. 왓슨</h1>
+        <aside class="infobox-person">
+            <h3>제임스 듀이 왓슨</h3>
+            <p class="subtitle">James Dewey Watson</p>
+            
+            <figure class="infobox-image">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/James_Watson_2004.jpg/250px-James_Watson_2004.jpg" alt="제임스 D. 왓슨">
+                <figcaption>제임스 D. 왓슨</figcaption>
+            </figure>
+            
+            <table>
+                <tbody>
+                    <tr><th>출생</th><td>1928년 4월 6일<br>미국 일리노이주 시카고</td></tr>
+                    <tr><th>사망</th><td>2025년 11월 6일(97세)</td></tr>
+                    <tr><th>성별</th><td>남성</td></tr>
+                    <tr><th>국적</th><td>미국</td></tr>
+                    <tr><th>학력</th><td>시카고 대학교 학사<br>인디애나 대학교 석사</td></tr>
+                </tbody>
+            </table>
         </aside>
 
-    </div> 
+        <div class="hatnote">
+            제임스 왓슨은 여기로 연결됩니다. 다른 뜻에 대해서는 <a href="#">제임스 왓슨 (동명이인)</a> 문서를 참고하십시오.
+        </div>
 
-    <script src="script.js"></script>
+        <p>
+            <b>제임스 듀이 왓슨</b>(<a href="#">영어</a>: James Dewey Watson, 1928년 4월 6일 ~ 2025년 11월 6일)은 미국의 분자 생물학자, 유전학자, 동물학자이다. 1953년 <a href="#">프랜시스 크릭</a>과 함께 <a href="#">DNA</a>의 이중 나선 구조에 관한 논문<sup><a href="#">[1]</a></sup>을 네이처에 발표한 것으로 잘 알려져 있다. 이 업적으로 1962년 <a href="#">프랜시스 크릭</a>, <a href="#">모리스 윌킨스</a>와 함께 노벨 생리학·의학상을 수상했다.
+        </p>
+
+        <p>
+            그는 <a href="#">시카고 대학교</a> 학사 후에 <a href="#">인디애나 대학교</a>에서 석사 학위를 취득했고, 영국 <a href="#">케임브리지 대학교</a>의 <a href="#">캐번디시 연구소</a>에서 연구했다. 연구소에서 그는 미래의 공동연구자인 프랜시스 크릭을 처음으로 만나게 된다. DNA의 구조 규명 이후 미국의 <a href="#">하버드 대학교</a> 생화학과 조교수로 부임해 연구를 해오다 <a href="#">게놈 프로젝트</a>를 주창했고 이 프로젝트의 초대 책임자를 맡기도 했다.
+        </p>
+        <hr> </article>
+
+    <article class="person-profile">
+        <h1>알베르트 아인슈타인</h1>
+        <aside class="infobox-person">
+            <h3>알베르트 아인슈타인</h3>
+            <p class="subtitle">Albert Einstein</p>
+            
+            <figure class="infobox-image">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Einstein_1921_by_F_Schmutzer_-_restoration.jpg/250px-Einstein_1921_by_F_Schmutzer_-_restoration.jpg" alt="알베르트 아인슈타인">
+                <figcaption>알베르트 아인슈타인</figcaption>
+            </figure>
+            
+            <table>
+                <tbody>
+                    <tr><th>출생</th><td>1879년 3월 14일<br>독일 울름</td></tr>
+                    <tr><th>사망</th><td>1955년 4월 18일(76세)<br>미국 프린스턴</td></tr>
+                    <tr><th>성별</th><td>남성</td></tr>
+                    <tr><th>국적</th><td>독일 (변경)<br>스위스<br>미국</td></tr>
+                    <tr><th>학력</th><td>스위스 연방 공과대학교</td></tr>
+                </tbody>
+            </table>
+        </aside>
+
+        <div class="hatnote">
+            알베르트 아인슈타인은 물리학자이자 상대성 이론을 정립한 인물입니다.
+        </div>
+
+        <p>
+            <b>알베르트 아인슈타인</b>(<a href="#">독일어</a>: Albert Einstein, 1879년 3월 14일 ~ 1955년 4월 18일)은 독일 태생의 이론 물리학자로, 일반 상대성이론을 개발한 것으로 가장 잘 알려져 있다. 이 이론은 현대 물리학의 두 가지 기둥 중 하나이며, 다른 하나는 양자 역학이다. 그의 질량-에너지 등가 공식 <i>E</i>=<i>mc</i><sup>2</sup>은 세계에서 가장 유명한 방정식 중 하나이다.
+        </p>
+
+        <p>
+            그는 상대론적 역학을 비롯한 여러 과학 분야에 지대한 영향을 미쳤으며, 1921년 광전 효과의 발견에 대한 공로로 노벨 물리학상을 수상했다. 그의 지적 업적과 독창성은 '아인슈타인'이라는 이름을 천재의 대명사로 만들었다.
+        </p>
+        <hr>
+    </article>
+
+    <article class="person-profile">
+        <h1>마리 퀴리</h1>
+        <aside class="infobox-person">
+            <h3>마리아 스크워도프스카 퀴리</h3>
+            <p class="subtitle">Marie Curie</p>
+            
+            <figure class="infobox-image">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Marie_Curie_c._1920s.jpg/250px-Marie_Curie_c._1920s.jpg" alt="마리 퀴리">
+                <figcaption>마리 퀴리</figcaption>
+            </figure>
+            
+            <table>
+                <tbody>
+                    <tr><th>출생</th><td>1867년 11월 7일<br>폴란드 바르샤바</td></tr>
+                    <tr><th>사망</th><td>1934년 7월 4일(66세)<br>프랑스 파시</td></tr>
+                    <tr><th>성별</th><td>여성</td></tr>
+                    <tr><th>국적</th><td>폴란드<br>프랑스</td></tr>
+                    <tr><th>학력</th><td>소르본 대학교</td></tr>
+                </tbody>
+            </table>
+        </aside>
+
+        <div class="hatnote">
+            마리 퀴리는 방사능 연구의 선구자이자 노벨상을 두 번 수상한 유일한 과학자입니다.
+        </div>
+
+        <p>
+            <b>마리 퀴리</b>(<a href="#">폴란드어</a>: Marie Curie, 1867년 11월 7일 ~ 1934년 7월 4일)는 폴란드와 프랑스 국적의 물리학자, 화학자이자 방사능 분야의 선구자이다. 그녀는 여성 최초의 노벨상 수상자이며, 물리학과 화학 분야에서 모두 노벨상을 수상한 유일한 인물이다. 또한 두 분야에서 노벨상을 수상한 유일한 인물이기도 하다.
+        </p>
+
+        <p>
+            그녀는 남편 피에르 퀴리와 함께 라듐과 폴로늄 원소를 발견했으며, 방사능 연구에 대한 공로로 1903년 노벨 물리학상을 수상했다. 1911년에는 라듐과 폴로늄을 분리한 공로로 노벨 화학상을 단독 수상했다. 그녀의 업적은 과학계에 혁명적인 영향을 미쳤다.
+        </p>
+        <hr>
+    </article>
+              
+              
+              
+              
+              
+    <article class="person-profile">
+        <h1>제임스 D. 왓슨</h1>
+        <aside class="infobox-person">
+            <h3>제임스 듀이 왓슨</h3>
+            <p class="subtitle">James Dewey Watson</p>
+            
+            <figure class="infobox-image">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/James_Watson_2004.jpg/250px-James_Watson_2004.jpg" alt="제임스 D. 왓슨">
+                <figcaption>제임스 D. 왓슨</figcaption>
+            </figure>
+            
+            <table>
+                <tbody>
+                    <tr><th>출생</th><td>1928년 4월 6일<br>미국 일리노이주 시카고</td></tr>
+                    <tr><th>사망</th><td>2025년 11월 6일(97세)</td></tr>
+                    <tr><th>성별</th><td>남성</td></tr>
+                    <tr><th>국적</th><td>미국</td></tr>
+                    <tr><th>학력</th><td>시카고 대학교 학사<br>인디애나 대학교 석사</td></tr>
+                </tbody>
+            </table>
+        </aside>
+
+        <div class="hatnote">
+            제임스 왓슨은 여기로 연결됩니다. 다른 뜻에 대해서는 <a href="#">제임스 왓슨 (동명이인)</a> 문서를 참고하십시오.
+        </div>
+
+        <p>
+            <b>제임스 듀이 왓슨</b>(<a href="#">영어</a>: James Dewey Watson, 1928년 4월 6일 ~ 2025년 11월 6일)은 미국의 분자 생물학자, 유전학자, 동물학자이다. 1953년 <a href="#">프랜시스 크릭</a>과 함께 <a href="#">DNA</a>의 이중 나선 구조에 관한 논문<sup><a href="#">[1]</a></sup>을 네이처에 발표한 것으로 잘 알려져 있다. 이 업적으로 1962년 <a href="#">프랜시스 크릭</a>, <a href="#">모리스 윌킨스</a>와 함께 노벨 생리학·의학상을 수상했다.
+        </p>
+
+        <p>
+            그는 <a href="#">시카고 대학교</a> 학사 후에 <a href="#">인디애나 대학교</a>에서 석사 학위를 취득했고, 영국 <a href="#">케임브리지 대학교</a>의 <a href="#">캐번디시 연구소</a>에서 연구했다. 연구소에서 그는 미래의 공동연구자인 프랜시스 크릭을 처음으로 만나게 된다. DNA의 구조 규명 이후 미국의 <a href="#">하버드 대학교</a> 생화학과 조교수로 부임해 연구를 해오다 <a href="#">게놈 프로젝트</a>를 주창했고 이 프로젝트의 초대 책임자를 맡기도 했다.
+        </p>
+        <hr> </article>          
+              
+              
+              
+              
+              
+
+    </main>
+
+            <aside id="settings-panel">
+                <fieldset>
+                    <legend>글</legend>
+                    <div>
+                        <input type="radio" id="font-small" name="font-size" value="small">
+                        <label for="font-small">작음</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="font-standard" name="font-size" value="standard" checked>
+                        <label for="font-standard">표준</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="font-large" name="font-size" value="large">
+                        <label for="font-large">큼</label>
+                    </div>
+                </fieldset>
+        
+                <fieldset>
+                    <legend>너비</legend>
+                    <div>
+                        <input type="radio" id="width-standard" name="layout-width" value="standard" checked>
+                        <label for="width-standard">표준</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="width-wide" name="layout-width" value="wide">
+                        <label for="width-wide">넓게</label>
+                    </div>
+                </fieldset>
+        
+                <fieldset>
+                    <legend>색 (베타)</legend>
+                    <div>
+                        <input type="radio" id="theme-auto" name="theme" value="auto">
+                        <label for="theme-auto">자동</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="theme-light" name="theme" value="light" checked>
+                        <label for="theme-light">라이트</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="theme-dark" name="theme" value="dark">
+                        <label for="theme-dark">다크</label>
+                    </div>
+                </fieldset>
+            </aside>
+
+        </div> </div> <script src="script.js"></script>
 </body>
+</html>
