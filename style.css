@@ -274,18 +274,19 @@ sup {
     line-height: 1.5;
 }ㅋ
 
-/* 2-5. 인물 정보 상자 - 제목 */
+/* 2-5. 인물 정보 상자 - 제목 (이전 수정) */
 .infobox-person h3 {
     font-size: 1.3em;
-    text-align: center;
+    text-align: center; /* 이미 적용됨 */
     padding: 10px;
     margin: 0;
     background-color: var(--page-bg);
     border-bottom: 1px solid var(--border-color-light);
 }
 
+/* 2-5. 인물 정보 상자 - 서브타이틀 (수정) */
 .infobox-person .subtitle {
-    text-align: center;
+    text-align: center; /* ★ 이 속성을 추가합니다. */
     font-size: 0.9em;
     margin: 5px 0;
     color: var(--text-color-secondary);
