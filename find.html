@@ -1,191 +1,57 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="light">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>민지 찾기 - 통합 레이아웃 예제</title>
-
-    <script>
-        (function() {
-            const choice = localStorage.getItem('userThemeChoice');
-            if (choice === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else if (choice === 'light') {
-                document.documentElement.setAttribute('data-theme', 'light');
-            } else if (choice === 'auto') {
-                document.documentElement.setAttribute('data-theme', 'light');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-            }
-        })();
-    </script>
-    <link rel="stylesheet" href="style.css">
-
-    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
-    <script defer src="find.js"></script>
-
+    <title>Face & Object Detection</title>
     <style>
-        /* find.html 페이지에만 적용될 추가 CSS */
-        #video-container {
-            position: relative; /* canvas 위치 지정을 위해 */
-            width: 100%;
-            max-width: 640px; /* 비디오 최대 너비 */
-            margin: 20px auto;
-            border: 1px solid var(--border-color-light);
-            background-color: var(--panel-bg);
+        body {
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column; /* 세로 정렬 */
+            height: 100vh;
+            background-color: #333;
         }
-        #video {
-            width: 100%;
-            height: auto;
-            display: block;
+        #videoContainer {
+            position: relative;
+            border: 2px solid white;
         }
-        #overlay-canvas {
-            position: absolute; /* 비디오 위에 겹치기 */
+        canvas {
+            position: absolute;
             top: 0;
             left: 0;
-            z-index: 10;
         }
-        #expression-output {
-            margin-top: 25px; /* 위쪽 여백 증가 */
-            margin-bottom: 25px; /* 아래쪽 여백 추가 */
-            padding: 20px 30px; /* 내부 여백 증가 */
-            
-            font-size: 2.2em; /* ★ 글자 크기 훨씬 키움 */
-            font-weight: 800; /* ★ 글자 더 굵게 */
-            color: #0645ad; /* ★ 진한 파란색 텍스트 */
-            
-            text-align: center;
-            line-height: 1.2; /* 줄 높이 조절 */
-
-            border: 4px solid #a7d7f9; /* ★ 파란색 테두리 */
-            border-radius: 8px; /* 테두리 모서리 둥글게 */
-            background-color: var(--content-bg); /* 배경색 유지 */
-            
-            display: inline-block; /* 내용물 너비만큼만 차지하도록 */
-            min-width: 300px; /* 최소 너비 지정 */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 추가 */
-
-            /* ★ 텍스트 밑줄 효과 (text-decoration-line과 text-decoration-thickness 사용) */
-            text-decoration-line: underline; 
-            text-decoration-color: #0645ad; /* 밑줄 색상도 파란색 */
-            text-decoration-thickness: 3px; /* 밑줄 두께 */
+        video {
+            display: block; 
         }
-        /* 로딩 메시지 스타일 */
-        #loading-message {
-            font-size: 1.1em;
-            color: var(--text-color-secondary);
-            margin: 20px;
-            text-align: center;
+        
+        /* 로딩 메시지 (오류 방지) */
+        #loadingMessage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none; /* JS에서 표시/숨김 */
         }
     </style>
 </head>
-
-<body class="font-standard width-standard">
-
-    <div id="page-wrapper">
-        <header id="header">
-            <div class="logo">
-                <a href="index.html">민지와 민지와 민지와 민지, 그리고 민지</a>
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="위키백과 검색" id="search-input">
-                <button>검색</button>
-            </div>
-            <nav class="user-links">
-                <a href="find.html">민지를 찾기</a>
-                <a href="#">로그인</a>
-            </nav>
-        </header>
-
-        <div id="main-wrapper">
-            
-            <nav id="left-sidebar">
-                <ul>
-                    <li><a href="about.html">소개</a></li>
-                    <li><a href="#">최근 바뀜</a></li>
-                    <li><a href="#">임의의 문서</a></li>
-                    <li><a href="#">기부</a></li>
-                </ul>
-            </nav>
-
-            <main id="content-area">
-                <nav class="tabs">
-                    <a href="#" class="active">문서</a>
-                    <a href="#">토론</a>
-                </nav>
-
-                <h1>민지 찾기</h1>
-                <article class="article-body">
-                    <p>
-                        이곳에서 당신의 얼굴 표정을 감지하여 민지의 마음을 찾아보세요!
-                    </p>
-                    <p>
-                        <span style="color: red; font-weight: bold;">주의:</span> 웹캠 사용 권한을 요청합니다. 권한을 허용해야 기능이 작동합니다.
-                    </p>
-
-                    <div id="loading-message">
-                        얼굴 인식 모델 로딩 중... 잠시만 기다려주세요.
-                    </div>
-                    
-                    <div id="video-container">
-                        <video id="video" width="640" height="480" autoplay muted></video>
-                        <canvas id="overlay-canvas"></canvas>
-                    </div>
-                    
-                    <div id="expression-output"></div>
-
-                </article>
-            </main>
-
-            <aside id="settings-panel">
-                <fieldset>
-                    <legend>글</legend>
-                    <div>
-                        <input type="radio" id="font-small" name="font-size" value="small">
-                        <label for="font-small">작음</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="font-standard" name="font-size" value="standard" checked>
-                        <label for="font-standard">표준</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="font-large" name="font-size" value="large">
-                        <label for="font-large">큼</label>
-                    </div>
-                </fieldset>
+<body>
+    <div id="videoContainer">
+        <video id="video" width="720" height="560" autoplay muted playsinline></video>
         
-                <fieldset>
-                    <legend>너비</legend>
-                    <div>
-                        <input type="radio" id="width-standard" name="layout-width" value="standard" checked>
-                        <label for="width-standard">표준</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="width-wide" name="layout-width" value="wide">
-                        <label for="width-wide">넓게</label>
-                    </div>
-                </fieldset>
-        
-                <fieldset>
-                    <legend>색 (베타)</legend>
-                    <div>
-                        <input type="radio" id="theme-auto" name="theme" value="auto">
-                        <label for="theme-auto">자동</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="theme-light" name="theme" value="light" checked>
-                        <label for="theme-light">라이트</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="theme-dark" name="theme" value="dark">
-                        <label for="theme-dark">다크</label>
-                    </div>
-                </fieldset>
-            </aside>
+        <div id="loadingMessage">AI 모델을 로드 중입니다...</div>
+    </div>
 
-        </div> </div> </body>
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
 </html>
