@@ -48,13 +48,13 @@ async function startVideo() {
 
 // 표정 문구 매핑
 const expressionMessages = {
-    neutral: "민지는 지금 평온하네요.",
-    happy: "민지가 행복한 미소를 짓고 있어요!",
-    sad: "민지는 살짝 슬픈가 봐요...",
-    angry: "민지가 화가 난 것 같아요. 조심하세요!",
-    fearful: "민지가 무서워하고 있어요.",
-    disgusted: "민지가 불쾌해하는 표정이네요.",
-    surprised: "민지가 깜짝 놀랐어요!"
+    neutral: "무표정을 짓는 민지",
+    happy: "기쁜 표정의 민지",
+    sad: "슬픈 표정의 민지",
+    angry: "화가 난 민지",
+    fearful: "무서워하는 민지",
+    disgusted: "불쾌해하는 민지",
+    surprised: "깜짝 놀란 민지"
 };
 
 // 표정 감지 및 그리기 함수
