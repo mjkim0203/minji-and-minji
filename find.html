@@ -5,7 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>민지 찾기 - 통합 레이아웃 예제</title>
 
+    <script>
+        (function() {
+            const choice = localStorage.getItem('userThemeChoice');
+            if (choice === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else if (choice === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else if (choice === 'auto') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="style.css">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <script defer src="find.js"></script>
+
+    <style>
+        /* find.html 페이지에만 적용될 추가 CSS */
+        #video-container {
+            position: relative; /* canvas 위치 지정을 위해 */
+            width: 100%;
+            max-width: 640px; /* 비디오 최대 너비 */
+            margin: 20px auto;
+            border: 1px solid var(--border-color-light);
+            background-color: var(--panel-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* 세로 정렬 */
+        }
+        #video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        #overlay-canvas {
+            position: absolute; /* 비디오 위에 겹치기 */
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        #expression-output {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--text-color);
+            min-height: 2em; /* 최소 높이로 흔들림 방지 */
+            text-align: center;
+            padding: 10px;
+        }
+        /* 로딩 메시지 스타일 */
+        #loading-message {
+            font-size: 1.1em;
+            color: var(--text-color-secondary);
+            margin: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body class="font-standard width-standard">
@@ -45,11 +105,23 @@
                 <h1>민지 찾기</h1>
                 <article class="article-body">
                     <p>
-                        이곳에 '민지를 찾기' 위한 콘텐츠를 작성할 수 있습니다.
+                        이곳에서 당신의 얼굴 표정을 감지하여 민지의 마음을 찾아보세요!
                     </p>
                     <p>
-                        예를 들어, 민지에 대한 설명이나 연락처 등을 넣을 수 있습니다.
+                        <span style="color: red; font-weight: bold;">주의:</span> 웹캠 사용 권한을 요청합니다. 권한을 허용해야 기능이 작동합니다.
                     </p>
+
+                    <div id="loading-message">
+                        얼굴 인식 모델 로딩 중... 잠시만 기다려주세요.
+                    </div>
+                    
+                    <div id="video-container">
+                        <video id="video" width="640" height="480" autoplay muted></video>
+                        <canvas id="overlay-canvas"></canvas>
+                    </div>
+                    
+                    <div id="expression-output"></div>
+
                 </article>
             </main>
 
@@ -99,6 +171,5 @@
                 </fieldset>
             </aside>
 
-        </div> </div> <script src="script.js"></script>
-</body>
+        </div> </div> </body>
 </html>
