@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Face & Object Detection</title>
+    <title>Face & Expression Detection</title>
     <style>
         body {
             margin: 0;
@@ -17,6 +17,9 @@
         #videoContainer {
             position: relative;
             border: 2px solid white;
+            /* 비디오 크기 (JS와 일치) */
+            width: 720px;
+            height: 560px;
         }
         canvas {
             position: absolute;
@@ -24,10 +27,12 @@
             left: 0;
         }
         video {
-            display: block; 
+            display: block;
+            width: 100%;
+            height: 100%;
         }
         
-        /* 로딩 메시지 (오류 방지) */
+        /* 로딩 메시지 */
         #loadingMessage {
             position: absolute;
             top: 50%;
@@ -39,6 +44,7 @@
             padding: 20px;
             border-radius: 10px;
             display: none; /* JS에서 표시/숨김 */
+            z-index: 10;
         }
     </style>
 </head>
@@ -52,6 +58,6 @@
     <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
 
-    <script src="script.js"></script>
+    <script src="find.js"></script>
 </body>
 </html>
