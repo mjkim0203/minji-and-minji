@@ -3,39 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 민지 찾기</title>
+    <title>민지 찾기 - AI 카메라</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    
     <style>
-        /* 카메라 페이지 전용 스타일 
-          (기존 index.html의 레이아웃 대신 중앙 정렬) 
-        */
-        body {
-            margin: 0;
-            padding: 0;
+        /* 기존 레이아웃 본문 영역에 카메라를 맞춥니다 */
+        .article-content {
             display: flex;
-            flex-direction: column; /* 요소들을 세로로 정렬 */
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #333;
-            font-family: Arial, sans-serif;
-            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            /* 기존 텍스트 대신 비디오가 들어갈 수 있도록 */
+            min-height: 560px; 
         }
+
+        /* 1. 카메라 영역의 기준점 */
         #videoContainer {
             position: relative;
-            border: 2px solid white;
-            width: 720px;
+            border: 2px solid white; 
+            width: 720px; 
             height: 560px;
+            background-color: #000; /* 로딩 중 검은 배경 */
         }
+
+        /* 2. 캔버스를 비디오 위에 겹침 */
         canvas {
             position: absolute;
             top: 0;
             left: 0;
         }
+
+        /* 3. 비디오가 컨테이너에 꽉 차게 함 */
         video {
-            display: block;
-            width: 100%;
+            display: block; 
+            width: 100%; 
             height: 100%;
         }
+
+        /* 4. 로딩 메시지 */
         #loadingMessage {
             position: absolute;
             top: 50%;
@@ -49,30 +56,59 @@
             display: none; /* JS에서 표시/숨김 */
             z-index: 10;
         }
-        /* (옵션) 돌아가기 링크 */
-        .back-link {
-            margin-top: 20px;
-            color: #FFFF00;
-            font-size: 18px;
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
+    <header class="header">
+        <div class="logo">민지와 민지와 민지, 그리고 민지</div>
+        <div class="search-bar">
+            <input type="text" placeholder="민지를 검색하기">
+            <button>검색</button>
+        </div>
+        <nav class="user-nav">
+            <a href="find.html" class="active">민지를 찾기</a> 
+            <a href="#">민지를 남기기</a>
+        </nav>
+    </header>
 
-    <h2>AI 민지 찾기</h2>
-    <p>카메라를 보고 표정을 지어보세요.</p>
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav class="main-menu">
+                <ul>
+                    <li><a href="index.html">소개</a></li> <li><a href="#">민지들</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-    <div id="videoContainer">
-        <video id="video" width="720" height="560" autoplay muted playsinline></video>
-        <div id="loadingMessage">AI 모델을 로드 중입니다...</div>
+        <main class="content-area">
+            <div class="tabs">
+                <button class="tab-button active">문서</button>
+                <button class="tab-button">편집</button>
+            </div>
+            <h1 class="article-title">AI 민지 찾기</h1>
+            
+            
+            <div class="article-content">
+                <div id="videoContainer">
+                    <video id="video" width="720" height="560" autoplay muted playsinline></video>
+                    <div id="loadingMessage">AI 모델을 로드 중입니다...</div>
+                </div>
+            </div>
+            </main>
+
+        <aside class="sidebar-right">
+            <section class="section">
+                <h3>글</h3>
+                <label><input type="radio" name="font-size" checked> 작음</label>
+                <label><input type="radio" name="font-size"> 표준</label>
+                <label><input type="radio" name="font-size"> 큼</label>
+            </section>
+        </aside>
     </div>
-    
-    <a href="index.html" class="back-link">메인 페이지로 돌아가기</a>
 
+    
     <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
-
-    <script src="find.js"></script>
+    <script src="find.js"></script> 
 </body>
 </html>
