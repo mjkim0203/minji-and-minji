@@ -8,35 +8,21 @@
     <link rel="stylesheet" href="style.css"> 
     
     <style>
-        /* 카메라 기능에 필요한 추가/수정 CSS */
+        /* * .article-content (본문 영역)의 스타일은
+         * style.css에서 불러온 것을 그대로 사용합니다. (덮어쓰기 X)
+         */
 
-        /* 본문 영역을 카메라에 맞게 조정 (검은색 상자 포함) */
-        .article-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* 기존 padding 유지, 필요시 조절 */
-            padding: 20px; 
-            box-sizing: border-box;
-            /* 검은색 상자 크기에 맞추거나 유연하게 */
-            min-height: 560px; /* 카메라 높이에 맞춰 */
-            background-color: black; /* 검은색 상자 배경 */
-            margin-top: 20px; /* 제목과의 간격 (필요시 조절) */
-            margin-bottom: 20px; /* 하단 간격 (필요시 조절) */
-            width: calc(100% - 40px); /* 좌우 패딩 고려, 검은색 상자가 본문 영역에 꽉 차게 */
-            max-width: 720px; /* 카메라 너비에 맞춰 (필요시 조절) */
-            position: relative; /* #videoContainer 위치 지정을 위한 기준점 */
-            overflow: hidden; /* 카메라가 넘칠 경우 대비 */
-        }
-        
-        /* 1. 카메라 영역의 기준점 */
+        /* 1. 카메라 영역 (검은색 상자) */
         #videoContainer {
             position: relative;
-            /* 검은색 상자 중앙에 위치 */
-            width: 720px; /* 이미지 너비에 맞춰 */
-            height: 560px; /* 이미지 높이에 맞춰 */
-            border: none; /* 검은색 상자 안에 있으므로 흰색 테두리 제거 */
-            background-color: black;
+            /* 사용자가 원했던 검은 상자 크기 */
+            width: 720px;  
+            height: 560px; 
+            background-color: #000; /* 비디오 로딩 전 검은 배경 */
+            border: 2px solid white; /* 흰색 테두리 */
+            
+            /* .article-content (부모) 내부에서 가운데 정렬되도록 */
+            margin: 20px auto; /* 상하 여백 20px, 좌우 자동 (가운데) */
         }
 
         /* 2. 캔버스를 비디오 위에 겹침 */
@@ -53,7 +39,7 @@
             display: block; 
             width: 100%; 
             height: 100%;
-            object-fit: cover; /* 비디오가 컨테이너에 꽉 차게 (비율 유지) */
+            object-fit: cover; /* 꽉 차게 */
         }
 
         /* 4. 로딩 메시지 */
@@ -70,12 +56,10 @@
             display: none; 
             z-index: 10; 
         }
-
-        /* 사이드바, 헤더 등 index.html의 다른 요소들에 대한 스타일은 style.css에서 처리됩니다 */
-        /* 여기서는 find.html 본문에 카메라를 넣기 위한 최소한의 수정만 추가 */
     </style>
 </head>
 <body>
+    
     <header class="header">
         <div class="logo">민지와 민지와 민지, 그리고 민지</div>
         <div class="search-bar">
@@ -83,11 +67,13 @@
             <button>검색</button>
         </div>
         <nav class="user-nav">
-            <a href="find.html" class="active">민지를 찾기</a> <a href="#">민지를 남기기</a>
+            <a href="find.html" class="active">민지를 찾기</a> 
+            <a href="#">민지를 남기기</a>
         </nav>
     </header>
 
     <div class="main-container">
+        
         <aside class="sidebar">
             <nav class="main-menu">
                 <ul>
@@ -102,16 +88,16 @@
                 <button class="tab-button active">문서</button>
                 <button class="tab-button">편집</button>
             </div>
-            <h1 class="article-title">민지가 되어보기</h1>
+            <h1 class="article-title">AI 민지 찾기</h1>
+            
             
             <div class="article-content">
                 <div id="videoContainer">
                     <video id="video" width="720" height="560" autoplay muted playsinline></video>
-                    <div id="loadingMessage">카메라 모델을 로드 중입니다...</div>
+                    <div id="loadingMessage">AI 모델을 로드 중입니다...</div>
                 </div>
             </div>
-            
-        </main>
+            </main>
 
         <aside class="sidebar-right">
             <section class="section">
@@ -123,6 +109,7 @@
         </aside>
     </div>
 
+    
     <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
     <script src="find.js"></script> 
