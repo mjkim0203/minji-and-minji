@@ -5,9 +5,7 @@ let canvas;
 let displaySize;
 let ctx; 
 
-// [⭐ 중요]
-// 이 스크립트는 'find.html'과 같은 폴더에 있는
-// 'models' 폴더를 참조합니다.
+// 'find.html'과 같은 폴더에 있는 'models' 폴더를 참조
 const MODEL_URL = './models'; 
 
 let faceDetections = [];
