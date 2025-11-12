@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Face & Expression Detection</title>
+    <title>AI 민지 찾기</title>
     <style>
+        /* 카메라 페이지 전용 스타일 
+          (기존 index.html의 레이아웃 대신 중앙 정렬) 
+        */
         body {
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column; /* 요소들을 세로로 정렬 */
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #333;
+            font-family: Arial, sans-serif;
+            color: white;
         }
         #videoContainer {
             position: relative;
             border: 2px solid white;
-            /* 비디오 크기 (JS와 일치) */
             width: 720px;
             height: 560px;
         }
@@ -31,8 +36,6 @@
             width: 100%;
             height: 100%;
         }
-        
-        /* 로딩 메시지 */
         #loadingMessage {
             position: absolute;
             top: 50%;
@@ -46,14 +49,26 @@
             display: none; /* JS에서 표시/숨김 */
             z-index: 10;
         }
+        /* (옵션) 돌아가기 링크 */
+        .back-link {
+            margin-top: 20px;
+            color: #FFFF00;
+            font-size: 18px;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
+
+    <h2>AI 민지 찾기</h2>
+    <p>카메라를 보고 표정을 지어보세요.</p>
+
     <div id="videoContainer">
         <video id="video" width="720" height="560" autoplay muted playsinline></video>
-        
         <div id="loadingMessage">AI 모델을 로드 중입니다...</div>
     </div>
+    
+    <a href="index.html" class="back-link">메인 페이지로 돌아가기</a>
 
     <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
