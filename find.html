@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>민지와 민지와 민지, 그리고 민지 - AI 카메라</title>
+    <title>민지 찾기 - AI 카메라</title>
     
     <link rel="stylesheet" href="style.css"> 
     
@@ -11,55 +11,66 @@
     
 </head>
 <body>
-    
-    <header class="header">
-        <div class="logo">민지와 민지와 민지, 그리고 민지</div>
-        <div class="search-bar">
-            <input type="text" placeholder="민지를 검색하기">
-            <button>검색</button>
-        </div>
-        <nav class="user-nav">
-            <a href="find.html" class="active">민지를 찾기</a> 
-            <a href="#">민지를 남기기</a>
-        </nav>
-    </header>
+    <div id="page-wrapper">
+        <header id="header">
+            <div class="logo">민지와 민지와 민지, 그리고 민지</div>
+            <div class="search-bar">
+                <input type="text" placeholder="민지를 검색하기">
+                <button>검색</button>
+            </div>
+            <div class="user-links">
+                <a href="find.html" class="active">민지를 찾기</a> 
+                <a href="#">민지를 남기기</a>
+            </div>
+        </header>
 
-    <div class="main-container">
-        
-        <aside class="sidebar">
-            <nav class="main-menu">
+        <div id="main-wrapper">
+            
+            <aside id="left-sidebar">
                 <ul>
-                    <li><a href="index.html">소개</a></li> 
+                    <li><a href="index.html">소개</a></li>
                     <li><a href="#">민지들</a></li>
                 </ul>
-            </nav>
-        </aside>
+            </aside>
 
-        <main class="content-area">
-            <div class="tabs">
-                <button class="tab-button active">문서</button>
-                <button class="tab-button">편집</button>
-            </div>
-            <h1 class="article-title">AI 민지 찾기</h1>
-            
-            <div class="article-content">
-                <div id="videoContainer">
-                    <video id="video" width="720" height="560" autoplay muted playsinline></video>
-                    <div id="loadingMessage">AI 모델을 로드 중입니다...</div>
+            <main id="content-area">
+                <div class="tabs">
+                    <a href="#" class="active">문서</a>
+                    <a href="#">편집</a>
                 </div>
-            </div>
-            </main>
+                <h1 class="article-title">AI 민지 찾기</h1>
+                
+                <div class="article-content">
+                    <div id="videoContainer">
+                        <video id="video" width="720" height="560" autoplay muted playsinline></video>
+                        <div id="loadingMessage">AI 모델을 로드 중입니다...</div>
+                    </div>
+                </div>
+                </main>
 
-        <aside class="sidebar-right">
-            <section class="section">
-                <h3>글</h3>
-                <label><input type="radio" name="font-size" checked> 작음</label>
-                <label><input type="radio" name="font-size"> 표준</label>
-                <label><input type="radio" name="font-size"> 큼</label>
-            </section>
-        </aside>
+            <aside id="settings-panel">
+                 <fieldset>
+                    <legend>글</legend>
+                    <input type="radio" id="font-small" name="font-size" value="small"> <label for="font-small">작음</label>
+                    <input type="radio" id="font-standard" name="font-size" value="standard" checked> <label for="font-standard">표준</label>
+                    <input type="radio" id="font-large" name="font-size" value="large"> <label for="font-large">큼</label>
+                </fieldset>
+                <fieldset>
+                    <legend>너비</legend>
+                    <input type="radio" id="width-standard" name="width" value="standard" checked> <label for="width-standard">표준</label>
+                    <input type="radio" id="width-wide" name="width" value="wide"> <label for="width-wide">넓게</label>
+                </fieldset>
+                <fieldset>
+                    <legend>색 (베타)</legend>
+                    <input type="radio" id="theme-auto" name="color-theme" value="auto" checked> <label for="theme-auto">자동</label>
+                    <input type="radio" id="theme-light" name="color-theme" value="light"> <label for="theme-light">라이트</label>
+                    <input type="radio" id="theme-dark" name="color-theme" value="dark"> <label for="theme-dark">다크</label>
+                </fieldset>
+            </aside>
+
+        </div> 
+        
     </div>
-
     
     <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
