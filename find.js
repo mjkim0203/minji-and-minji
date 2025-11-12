@@ -1,104 +1,160 @@
-// 필요한 DOM 요소들
 const video = document.getElementById('video');
-const canvas = document.getElementById('overlay-canvas');
-const expressionOutput = document.getElementById('expression-output');
-const loadingMessage = document.getElementById('loading-message');
-const displaySize = { width: video.width, height: video.height };
-let isModelsLoaded = false; // 모델 로딩 상태
+const videoContainer = document.getElementById('videoContainer');
+const loadingMessage = document.getElementById('loadingMessage');
+let canvas;
+let displaySize;
+let ctx; 
 
-// 모델 로드 함수
+// [⭐ 중요]
+// 이 스크립트는 'find.html'과 같은 폴더에 있는
+// 'models' 폴더를 참조합니다.
+const MODEL_URL = './models'; 
+
+let faceDetections = [];
+
+let currentMessage = "카메라를 바라보세요";
+let messageTimer;
+
+// 1. 모델 로드 (SSD + 표정)
 async function loadModels() {
-    // 모델 파일들이 위치한 경로를 지정 (GitHub Pages에 업로드할 'models' 폴더 기준)
-    const MODEL_URL = './models'; 
-    
+    console.log("모델 로딩 시작...");
+    loadingMessage.style.display = 'block'; 
+
     try {
-        await faceapi.nets.tinyFaceDetector.load(MODEL_URL);
-        await faceapi.nets.faceLandmark68Net.load(MODEL_URL);
-        await faceapi.nets.faceExpressionNet.load(MODEL_URL);
-        console.log('Face-api.js 모델 로딩 완료');
-        isModelsLoaded = true;
-        loadingMessage.textContent = '웹캠 시작 중... 권한을 허용해주세요.';
-        startVideo(); // 모델 로딩 후 웹캠 시작
+        await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+        console.log("얼굴 탐지 모델(SSD) 및 표정 모델 완료!");
+        
+        console.log("모든 모델 로드 완료!");
     } catch (error) {
-        console.error('모델 로딩 실패:', error);
-        loadingMessage.textContent = '모델 로딩 실패! 콘솔을 확인해주세요.';
+        console.error("모델 로드 실패:", error);
+        loadingMessage.innerText = "모델 로드에 실패했습니다. (필수 모델 파일 확인)";
+    } finally {
+        loadingMessage.style.display = 'none'; 
     }
 }
 
-// 웹캠 시작 함수
-async function startVideo() {
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
-        video.srcObject = stream;
-        video.onloadedmetadata = () => {
-            console.log('비디오 메타데이터 로드 완료');
-            // 비디오 크기에 맞춰 캔버스 크기 조정
-            displaySize.width = video.videoWidth;
-            displaySize.height = video.videoHeight;
-            faceapi.matchDimensions(canvas, displaySize);
-            loadingMessage.style.display = 'none'; // 로딩 메시지 숨기기
-            video.play(); // 비디오 재생
-        };
-    } catch (err) {
-        console.error('웹캠 접근 실패:', err);
-        loadingMessage.textContent = '웹캠 접근 실패! 카메라 권한을 허용했는지 확인해주세요.';
-        alert('웹캠에 접근할 수 없습니다. 카메라 권한을 확인해주세요.');
-    }
+// 2. 웹캠 시작 (구형 호환 .then() 사용)
+function startVideo() {
+    console.log("웹캠 시작 시도...");
+    navigator.mediaDevices.getUserMedia({ video: {} })
+        .then(function(stream) {
+            console.log("웹캠 스트림 확보 성공.");
+            video.srcObject = stream;
+        })
+        .catch(function(err) {
+            console.error("웹캠 접근 오류:", err);
+            loadingMessage.style.display = 'block';
+            loadingMessage.innerText = "웹캠 권한을 허용해주세요.";
+        });
 }
 
-// 표정 문구 매핑
-const expressionMessages = {
-    neutral: "무표정을 짓는 민지",
-    happy: "기쁜 표정의 민지",
-    sad: "슬픈 표정의 민지",
-    angry: "화가 난 민지",
-    fearful: "무서워하는 민지",
-    disgusted: "불쾌해하는 민지",
-    surprised: "깜짝 놀란 민지"
-};
+// 3. 실시간 감지 시작 (성능 최적화: 200ms)
+function startDetection() {
+    canvas = faceapi.createCanvasFromMedia(video);
+    videoContainer.append(canvas);
+    displaySize = { width: video.width, height: video.height };
+    faceapi.matchDimensions(canvas, displaySize);
+    ctx = canvas.getContext('2d', { willReadFrequently: true }); 
 
-// 표정 감지 및 그리기 함수
-video.addEventListener('play', () => {
-    // 300ms(0.3초) 간격으로 얼굴 감지 및 표정 분석 반복
-    const interval = setInterval(async () => {
-        if (!isModelsLoaded) return; // 모델 로딩 전에는 실행하지 않음
+    // 0.2초(200ms)에 한 번씩만 얼굴 감지
+    setInterval(detectFaces, 200); 
 
-        // 얼굴 감지 및 표정 분석 (TinyFaceDetector 사용)
-        const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-            .withFaceLandmarks()
-            .withFaceExpressions();
+    // 그리기는 0.1초(100ms)마다 실행 (더 부드럽게)
+    setInterval(drawLoop, 100); 
 
-        // 캔버스 초기화
-        const context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
+    // 문구 갱신은 3초마다
+    messageTimer = setInterval(updateMessage, 3000); 
+}
 
-        if (detections && detections.length > 0) {
-            // 얼굴 감지 결과를 비디오 크기에 맞게 재조정
-            const resizedDetections = faceapi.resizeResults(detections, displaySize);
-            
-            // 얼굴 박스 그리기
-            // faceapi.draw.drawDetections(canvas, resizedDetections);
-            // 얼굴 랜드마크 그리기 (예: 눈, 코, 입 위치)
-            // faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+// 3-1. 감지 루프 (표정 감지 추가)
+async function detectFaces() {
+    if (video.readyState < 3) { 
+        return; 
+    }
 
-            // 표정 분석 결과 처리
-            resizedDetections.forEach(detection => {
-                const expressions = detection.expressions;
-                const sortedExpressions = Object.keys(expressions).sort((a, b) => expressions[b] - expressions[a]);
-                const dominantExpression = sortedExpressions[0]; // 가장 지배적인 표정
+    const detections = await faceapi.detectAllFaces(video, new faceapi.SsdMobilenetv1Options())
+                                .withFaceExpressions(); // 표정 감지 추가
+    
+    console.log('얼굴 감지 루프 실행 중... 찾은 얼굴:', detections.length);
+                                
+    faceDetections = faceapi.resizeResults(detections, displaySize);
+}
 
-                // 콘솔에 표정 확률 출력 (디버깅용)
-                // console.log(expressions);
 
-                // 화면에 표정 문구 출력
-                expressionOutput.textContent = expressionMessages[dominantExpression] || "표정을 감지할 수 없습니다.";
-            });
+// 4. 안내 문구 갱신 (표정 인식 로직)
+function updateMessage() {
+    if (faceDetections.length > 0 && faceDetections[0].expressions) {
+        const expressions = faceDetections[0].expressions;
+        const happyProb = expressions.happy || 0;
+        const sadProb = expressions.sad || 0;
+        const neutralProb = expressions.neutral || 0;
+
+        // 'happy' 또는 'sad'가 'neutral'보다 10% 이상 높으면 문구 변경
+        if (happyProb > neutralProb + 0.1) {
+            currentMessage = '웃고 있는 민지';
+        } else if (sadProb > neutralProb + 0.1) {
+            currentMessage = '슬픈 민지';
         } else {
-            // 얼굴이 감지되지 않았을 때
-            expressionOutput.textContent = "얼굴이 감지되지 않았습니다.";
+            // 그 외 (무표정, 애매한 표정 등)
+            const time = getFormattedTime();
+            currentMessage = `${time}분의 민지`; 
         }
-    }, 300); // 0.3초마다 반복
-});
+    } else {
+        // 얼굴이 감지되지 않으면 기본 메시지
+        currentMessage = "카메라를 바라보세요";
+    }
+}
 
-// 페이지 로드 시 모델 로딩 시작
-window.addEventListener('load', loadModels);
+
+// 5. 그리기 루프 (.detection 경로 수정됨)
+function drawLoop() {
+    if (!ctx || (loadingMessage && loadingMessage.style.display === 'block')) return; 
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (faceDetections.length > 0) {
+        // .withFaceExpressions()를 사용하면 .detection 경로가 필요
+        const box = faceDetections[0].detection.box; 
+        
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)"; 
+        ctx.fillRect(box.x - 10, box.y - 40, box.width + 20, 35);
+        ctx.fillStyle = "#FFFF00"; 
+        ctx.font = '22px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(currentMessage, box.x + box.width / 2, box.y - 15);
+
+    } else { 
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = '24px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText("카메라를 바라보세요", canvas.width / 2, canvas.height / 2); 
+    }
+}
+
+// --- 헬퍼 함수 (Helper Functions) ---
+
+function getFormattedTime() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+}
+
+// --- 스크립트 실행 (구형 호환) ---
+function main() {
+    video.addEventListener('play', function() {
+        console.log("Video is playing. Starting model load...");
+        
+        loadModels().then(function() {
+            if (!loadingMessage || loadingMessage.style.display === 'none') { 
+                startDetection();
+                console.log("Detection started.");
+            }
+        });
+    });
+    
+    startVideo(); 
+}
+
+main();
